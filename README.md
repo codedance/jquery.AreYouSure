@@ -1,23 +1,23 @@
-Are You Sure?  - A "dirty forms" JQuery Plugin for modern browsers!
+Are You Sure?  - A light "dirty forms" JQuery Plugin!
 ======
 
-Are-you-sure (```jquery.are-you-sure.js```) is simple light-weight "dirty 
+*Are-you-sure* (```jquery.are-you-sure.js```) is simple light-weight "dirty 
 forms" JQuery Plugin for modern browsers.  It helps prevent users from loosing 
 unsaved form changes.
 
-It's simple to use.  Just add the following line to your page's jquery 
-ready function:
+It's simple to use.  Just add the following line to your page's ready 
+function:
 
 ```javascript
 $('form').areYouSure();
 ```
 
-Are-you-sure is a minimal plugin for modern browsers.  There of plenty of 
+*Are-you-sure* is a minimal plugin for modern browsers.  There of plenty of 
 "dirty forms" implementations out there, but their code is hairy! They often 
 have many hacks to support legacy browsers, and/or rely on other fat 
 dependencies such as FaceBox or jQueryUI.  
 
-Are-you-sure is as simple as it gets:
+*Are-you-sure* is as simple as it gets:
 
  * 100% JS with zero dependencies or no external CSS.
  * Leverage `onBeforeUnload` to detect all exit page/browser events.
@@ -26,7 +26,7 @@ Are-you-sure is as simple as it gets:
    is not considered dirty.
  * Easy to understand - less than a "terminal screen" of code!
 
-##Usage
+###Usage
 
 ```javascript
 
@@ -62,23 +62,23 @@ To ignore selected fields from the dirtyness check:
 ```
 
 
-##Install
+###Install
 This plugin is very light weight. You could download the 
 ```jquery.are-you-sure.js``` however my recommendation is to simply 
 cut-n-paste the code into one of your existing JavaScript files... it seems 
 a shame to add an extra browser round trip for such a simple feature :-)
 
 
-##Release History
+###Release History
 
 **2012-10-24** - Initial public release.
 
 
-##Prerequisites
+###Prerequisites
 jQuery version 1.4.2 or higher. 
 
 
-##License
+###License
 The same as JQuery...
 
     jQuery Plugin: Are-You-Sure
