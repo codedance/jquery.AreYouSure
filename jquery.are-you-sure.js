@@ -80,8 +80,9 @@
     };
 
     $(window).bind('beforeunload', function() {
-      var n = $("form[class='" + settings.dirtyClass + "']").length;
-      if (n > 0) {
+      $dirtyForms = $("form").filter('.' + settings.dirtyClass);
+      if ($dirtyForms.length > 0) {
+        // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
         return settings.message;
       }
     });
@@ -91,7 +92,7 @@
         return;
 
       $(this).submit(function() {
-        $form.removeClass(settings.dirtyClass);
+        $(this).removeClass(settings.dirtyClass);
       });
 
       $(this).find(settings.fieldSelector).each(storeOrigValue);
