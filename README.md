@@ -66,8 +66,9 @@ To ignore selected fields from the dirtyness check:
 This plugin is very light weight. You could download the 
 [jquery.are-you-sure.js](https://raw.github.com/codedance/jquery.AreYouSure/master/jquery.are-you-sure.js)
 file however my recommendation is to simply 
-cut-n-paste the code into one of your existing JavaScript files... it seems 
-a shame to add an extra browser round trip for such a simple feature :-)
+cut-n-paste the code (and license header) into one of your existing 
+JavaScript files... it seems a shame to add an extra browser round 
+trip for such a simple feature :-)
 
 
 ###Release History
