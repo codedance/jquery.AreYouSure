@@ -97,7 +97,6 @@
 
       $(this).find(settings.fieldSelector).each(storeOrigValue);
 
-      //$(this).on('change keyup', settings.fieldSelector, checkForm);
       $(this).find(settings.fieldSelector).bind('change keyup', checkForm);
     });
   };
