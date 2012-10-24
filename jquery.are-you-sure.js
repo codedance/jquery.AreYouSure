@@ -11,13 +11,12 @@
 (function($) {
   $.fn.areYouSure = function(options) {
 
-    var settings = $
-        .extend(
-            {
-              'message' : 'You have unsaved changes!',
-              'dirtyClass' : 'dirty',
-              'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio']"
-            }, options);
+    var settings = $.extend(
+          {
+            'message' : 'You have unsaved changes!',
+            'dirtyClass' : 'dirty',
+            'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio']"
+          }, options);
 
     var getValue = function($field) {
       if ($field.hasClass('aysIgnore') || $field.attr('data-ays-ignore')) {
@@ -30,21 +29,21 @@
         type = 'select';
 
       switch (type) {
-      case 'checkbox':
-      case 'radio':
-        val = $field.is(':checked');
-        break;
-      case 'select':
-        val = '';
-        $field.children('option').each(function(o) {
-          var $option = $(this);
-          if ($option.is(':selected')) {
-            val += $option.val();
-          }
-        });
-        break;
-      default:
-        val = $field.val();
+        case 'checkbox':
+        case 'radio':
+          val = $field.is(':checked');
+          break;
+        case 'select':
+          val = '';
+          $field.children('option').each(function(o) {
+            var $option = $(this);
+            if ($option.is(':selected')) {
+              val += $option.val();
+            }
+          });
+          break;
+        default:
+          val = $field.val();
       }
       return val;
     };
