@@ -19,8 +19,8 @@ dependencies such as FaceBox or jQueryUI.
 
 *Are-you-sure* is as simple as it gets:
 
- * 100% JS with zero dependencies or no external CSS.
- * Leverage `onBeforeUnload` to detect all exit page/browser events.
+ * 100% JS with zero dependencies and no external CSS.
+ * Leverage `onBeforeUnload` to detect all page/browser exit events.
  * Works on forms of any size.
  * Correct state management - if a user edits then restores a value, the form 
    is not considered dirty.
@@ -82,7 +82,7 @@ jQuery version 1.4.2 or higher.
 ###License
 The same as JQuery...
 
-    jQuery Plugin: Are-You-Sure
+    jQuery Plugin: Are-You-Sure (Dirty Form Detection)
     https://github.com/codedance/jquery.AreYouSure/
  
     Copyright (c) 2012, Chris Dance - PaperCut Software http://www.papercut.com/
