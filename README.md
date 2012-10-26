@@ -36,7 +36,7 @@ $(function() {
     $('form').areYouSure();
 
     // Enable on selected forms
-    $('form.dirtyCheck').areYouSure();
+    $('form.dirty-check').areYouSure();
 
     // With a custom message
     $('form').areYouSure( {'message':'Your profile details are not saved!'} );
@@ -54,7 +54,7 @@ To ignore selected fields from the dirtyness check:
 
         Text:                           <input type="text" name="text1"> <br />
         Text (ignored with attribute):  <input type="text" name="text2" data-ays-ignore="true"> <br />
-        Text (ignored with class):      <input type="text" name="text2" class="aysIgnore"> <br />
+        Text (ignored with class):      <input type="text" name="text2" class="ays-ignore"> <br />
 
         <input type="submit" value="Submit">
 
@@ -74,6 +74,7 @@ trip for such a simple feature :-)
 ###Release History
 
 **2012-10-24** - Initial public release.
+**2012-10-26** - Use dashes in class names rather than camel case.
 
 
 ###Prerequisites

@@ -4,7 +4,7 @@
         <script src="../jquery.are-you-sure.js"></script>
         <script>
             $(function() {
-                $('form.dirtyCheck').areYouSure();
+                $('form.dirty-check').areYouSure();
             });
         </script>
         <style type="text/css">
@@ -17,11 +17,11 @@
     <body>
 
         <h2>This form is tracked</h2>
-        <form id="myForm" class="dirtyCheck" name="myform" action="/post" method="post">
+        <form id="myForm" class="dirty-check" name="myform" action="/post" method="post">
 
             Text:                           <input type="text" name="text1"> <br />
             Text (ignored with attribute):  <input type="text" name="text2" data-ays-ignore="true"> <br />
-            Text (ignored with class):      <input type="text" name="text2" class="aysIgnore"> <br />
+            Text (ignored with class):      <input type="text" name="text2" class="ays-ignore"> <br />
 
             <input type="submit" value="Submit">
 
@@ -31,7 +31,7 @@
         <h2>This form is not tracked</h2>
         <form id="myForm2" class="" name="myform2" action="/post" method="post">
 
-            Text:                           <input type="text" name="text1"> <br />
+            Text: <input type="text" name="text1"> <br />
             <input type="submit" value="Submit">
 
         </form>
