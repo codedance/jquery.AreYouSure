@@ -13,18 +13,22 @@ $('form').areYouSure();
 ```
 
 *Are-you-sure* is a minimal plugin for modern browsers.  There of plenty of 
-"dirty forms" implementations out there, but their code is hairy! They often 
-have many hacks to support legacy browsers, and/or rely on other fat 
-dependencies such as FaceBox or jQueryUI.  
+"dirty forms" implementations out there, however they all seemed very 
+heavyweight and over-engineered...! Most where written some time back and 
+contain many 'hacks' to support legacy browsers, and/or rely on other fat 
+dependencies such as FaceBox or jQueryUI.  *Are-you-sure* solves this by
+doing this simple task in the simplest possible way.
 
 *Are-you-sure* is as simple as it gets:
 
  * 100% JS with zero dependencies and no external CSS.
- * Leverage `onBeforeUnload` to detect all page/browser exit events.
+ * Leverages `onBeforeUnload` to detect all page/browser exit events.
  * Works on forms of any size.
  * Correct state management - if a user edits then restores a value, the form 
    is not considered dirty.
  * Easy to understand - less than a "terminal screen" of code!
+ * Graceful degradation on legacy browsers (i.e. if you're running an old 
+   browser... remember to save :-)
 
 ###Usage
 
@@ -71,9 +75,17 @@ JavaScript files... it seems a shame to add an extra browser round
 trip for such a simple feature :-)
 
 
+###Future
+The aim is to keep *Are-you-sure* simple and light. One possible feature 
+extension though is to add event support so you can intercept the dirty state 
+change in your own code.  If you think this is a good idea, please voice
+your thoughts in the issue.
+
+
 ###Release History
 
 **2012-10-24** - Initial public release.
+
 **2012-10-26** - Use dashes in class names rather than camel case.
 
 
