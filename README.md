@@ -88,6 +88,8 @@ your thoughts in the issue.
 
 **2012-10-26** - Use dashes in class names rather than camel case.
 
+**2013-01-28** - Add ```change``` event support and a demo page.
+
 
 ###Prerequisites
 jQuery version 1.4.2 or higher. 

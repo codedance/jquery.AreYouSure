@@ -2,33 +2,36 @@
  * jQuery Plugin: Are-You-Sure (Dirty Form Detection)
  * https://github.com/codedance/jquery.AreYouSure/
  *
- * Copyright (c) 2012, Chris Dance - PaperCut Software http://www.papercut.com/
+ * Copyright (c) 2012-2013, Chris Dance and PaperCut Software http://www.papercut.com/
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
- * Date: 24th Oct 2012
+ * Author:   chris.dance@papercut.com
+ * Version:  1.1
+ * Date:     28th Jan 2013
  */
 (function($) {
   $.fn.areYouSure = function(options) {
-
     var settings = $.extend(
           {
             'message' : 'You have unsaved changes!',
             'dirtyClass' : 'dirty',
+            'change' : null,
             'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio']"
           }, options);
 
     var getValue = function($field) {
-      if ($field.hasClass('aysIgnore') 
-          || $field.hasClass('ays-ignore')
+      if ($field.hasClass('ays-ignore')
+          || $field.hasClass('aysIgnore')
           || $field.attr('data-ays-ignore')) {
         return null;
       }
 
       var val;
       var type = $field.attr('type');
-      if ($field.is('select'))
+      if ($field.is('select')) {
         type = 'select';
+      }
 
       switch (type) {
         case 'checkbox':
@@ -77,8 +80,14 @@
           }
         });
       }
+      var changed = isDirty != $form.hasClass(settings.dirtyClass);
 
       $form.toggleClass(settings.dirtyClass, isDirty);
+
+      // Fire change event if required
+      if (changed && settings.change) {
+        settings.change.call($form, $form);
+      }
     };
 
     $(window).bind('beforeunload', function() {
@@ -90,15 +99,14 @@
     });
 
     return this.each(function(elem) {
-      if (!$(this).is('form'))
+      if (!$(this).is('form')) {
         return;
-
+      }
       $(this).submit(function() {
         $(this).removeClass(settings.dirtyClass);
       });
 
       $(this).find(settings.fieldSelector).each(storeOrigValue);
-
       $(this).find(settings.fieldSelector).bind('change keyup', checkForm);
     });
   };
