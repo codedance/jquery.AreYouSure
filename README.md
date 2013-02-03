@@ -75,11 +75,14 @@ JavaScript files... it seems a shame to add an extra browser round
 trip for such a simple feature :-)
 
 
+###Demo
+This [demo page](http://www.papercut.com/products/free_software/are-you-sure/demo/are-you-sure-demo.html)
+hosts a number of example forms.
+
+
 ###Future
-The aim is to keep *Are-you-sure* simple and light. One possible feature 
-extension though is to add event support so you can intercept the dirty state 
-change in your own code.  If you think this is a good idea, please voice
-your thoughts in the issue.
+The aim is to keep *Are-you-sure* simple and light. If you think you have a good idea which is aligned
+with this objective, please voice your thoughts in the issues list.
 
 
 ###Release History
@@ -89,6 +92,8 @@ your thoughts in the issue.
 **2012-10-26** - Use dashes in class names rather than camel case.
 
 **2013-01-28** - Add ```change``` event support and a demo page.
+
+**2013-02-03** - Add demo page.
 
 
 ###Prerequisites
@@ -101,7 +106,7 @@ The same as JQuery...
     jQuery Plugin: Are-You-Sure (Dirty Form Detection)
     https://github.com/codedance/jquery.AreYouSure/
  
-    Copyright (c) 2012, Chris Dance - PaperCut Software http://www.papercut.com/
+    Copyright (c) 2012-2013, Chris Dance - PaperCut Software http://www.papercut.com/
     Dual licensed under the MIT or GPL Version 2 licenses.
     http://jquery.org/license
 

@@ -7,8 +7,8 @@
  * http://jquery.org/license
  *
  * Author:   chris.dance@papercut.com
- * Version:  1.1
- * Date:     28th Jan 2013
+ * Version:  1.1.0
+ * Date:     3rd Feb 2013
  */
 (function($) {
   $.fn.areYouSure = function(options) {

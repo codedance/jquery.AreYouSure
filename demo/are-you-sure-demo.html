@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>jQuery Plugin Demo: Are You Sure? - a dirty forms plugin</title>
+
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="../jquery.are-you-sure.js"></script>
     <script>
 
       $(function() {
 
-        // Example 1 
-        $('#example1').areYouSure();
+        // Example 1 - ... in one line of code
+        $('#example-1-form').areYouSure();
 
-        // Example 2
-        $('#example2').areYouSure();
+
+        // Example 2 - ignore a dynamic field
+        $('#example-2-form').areYouSure();
+
         var defaultPickup15min = new Date((new Date()).getTime() + 15 * 60000);
         $('#pickup').val(defaultPickup15min.getHours() + ':' + defaultPickup15min.getMinutes());
 
-        // Example 3
-        $('#example3').areYouSure(
+
+        // Example 3 - custom message and hooking the dirty change event
+        $('#example-3-form').areYouSure(
           {
             message: "Did you forget to save your standard coffee order?",
             change: function() {
@@ -37,6 +42,7 @@
     <style type="text/css">
       body {
         font-family: myriad-pro-1, myriad-pro-2, 'Lucida Grande', 'Arial', sans-serif;
+        margin: 25px;
       }
 
       form {
@@ -49,6 +55,11 @@
         background-image: -o-linear-gradient(top, rgba(170,83,3, 0.1), rgba(170,83,3, 0.5));
         background-image: linear-gradient(top, rgba(170,83,3, 0.1), rgba(170,83,3, 0.5));
         border-radius: 5px;
+      }
+
+      /* A bit of custom styling on example 3 */
+      #example-3-form.dirty {
+        border: 1px dashed red;
       }
 
       form h2 {
@@ -65,6 +76,7 @@
         float: right;
         width: 200px;
       }
+      
       form > div  input[type="radio"],
       form > div  input[type="checkbox"] {
         display: inline-block;
@@ -78,26 +90,35 @@
         clear: both;
         padding-bottom: 20px;
       }
-
     </style>
   </head>
 
   <body>
-    <h1>jQuery Plugin: Are You Sure?</h1>
+    <h1>jQuery Plugin Demo: Are You Sure?</h1>
     <p>
       This page hosts a demo of the <a href="https://github.com/codedance/jquery.AreYouSure">jQuery Are-You-Sure</a> plugin (<code>jquery.are-you-sure.js</code>).  
     </p>
     <p>
       <i>Are-you-sure</i> is simple light-weight "dirty forms" JQuery Plugin for modern browsers. It helps prevent users from loosing unsaved form changes.
     </p>
+    <p>
+      <strong>Features:</strong>
+      <ul>
+        <li>Light weight - only the features you need!</li>
+        <li>Dependency free.</li>
+        <li>Correct state management - if a user edits then restores a value, the form is not considered dirty.</li>
+        <li>Easy to understand - less than a "terminal screen" of code!</li>
+        <li>... and <a href="https://github.com/codedance/jquery.AreYouSure">more</a>.</li>
+      </ul>
+    </p>
 
     <h2>Example 1: It's simple!</h2>
     <p>
       This example shows how easy it is to add a dirty check to your form(s) with one line 
-      of code.
+      of code. (View the page's source)
     </p>
 
-    <form id="example1" name="coffeeOrder1" method="post">
+    <form id="example-1-form" name="coffeeOrder1" method="post">
       <h2>Enter Your Coffee Order</h2>
       <div>
         <label for="coffee">Coffee</label>
@@ -113,7 +134,7 @@
         <label for="shots">Shots</label><br />
         <input type="radio" name="shots" value="1" checked /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" /> 2 Shots - Morning wakeup!<br />
-        <input type="radio" name="shots" value="3" /> 3 Shots - Run fast!<br />
+        <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
         <label for="sugar">Sugar</label> <input type="text" name="sugar" value="0" />
@@ -134,13 +155,15 @@
     <h2>Example 2: Ignore the unimportant!</h2>
     <p>
       This example highlights how to disregard a field from the dirty check. In this form
-      the first field is dynamically populated (not user entered) and hence should not be checked.
+      the first field is dynamically populated and hence a change on this field should <em>not</em> 
+      mark the form as dirty.
     </p>
-    <form id="example2" name="coffeeOrder2" method="post">
+    <form id="example-2-form" name="coffeeOrder2" method="post">
       <h2>Enter Your Coffee Order</h2>
       <div>
+        <!-- The ays-ignore class means a change on this field is not considered "dirty" -->
         <label for="pickup">Pickup Time</label> <input class="ays-ignore" type="text" name="pickup" id="pickup" />
-        <!-- or  use a data attribute: 
+        <!-- or you can use a data attribute like this: 
         <label for="pickup">Pickup Time</label> <input data-ays-ignore="true" type="text" name="pickup" id="pickup" />
         -->
       </div>
@@ -158,7 +181,7 @@
         <label for="shots">Shots</label><br />
         <input type="radio" name="shots" value="1" checked /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" /> 2 Shots - Morning wakeup!<br />
-        <input type="radio" name="shots" value="3" /> 3 Shots - Run fast!<br />
+        <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
         <label for="sugar">Sugar</label> <input type="text" name="sugar" value="0" />
@@ -179,9 +202,11 @@
 
     <h2>Example 3: Lets be intelligent!</h2>
     <p>
-      This example form uses custom events and messages (see the Example 3 JavaScript in the header).
+      This is a more advanced example.  The <code>change</code> event is intercepted so the save button is 
+      only enabled if the form is dirty.  It also demonstrates how to customize the warning message and 
+      change the style of a dirty form.
     </p>
-    <form id="example3" name="coffeeOrder3" method="post">
+    <form id="example-3-form" name="coffeeOrder3" method="post">
       <h2>Update My Standard Order</h2>
       <div>
         <label for="coffee">Coffee</label>
@@ -197,7 +222,7 @@
         <label for="shots">Shots</label><br />
         <input type="radio" name="shots" value="1" /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" checked /> 2 Shots - Morning wakeup!<br />
-        <input type="radio" name="shots" value="3" /> 3 Shots - Run fast!<br />
+        <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
         <label for="sugar">Sugar</label> <input type="text" name="sugar" value="1" />
@@ -213,6 +238,11 @@
         <p>... or visit <a href="http://www.google.com/">Google</a> or close the window without saving!</p>
       </div>
     </form>
+
+    <p>
+      This jQuery plugin is developed by <a href="https://github.com/codedance">Chris Dance</a> 
+      at <a href="http://www.papercut.com/">PaperCut Software</a>.
+    </p>
 
   </body>
 </html>
