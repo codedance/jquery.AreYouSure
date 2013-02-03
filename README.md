@@ -46,9 +46,22 @@ $(function() {
     $('form').areYouSure( {'message':'Your profile details are not saved!'} );
 
     // Test if a form is dirty in your own code
-    if ($('#myForm').hasClass('dirty')) {
+    if ($('#my-form').hasClass('dirty')) {
         // Do something
     }
+
+    // Advanced: Hook a dirty change event to enable the "save" button.
+    $('#my-adv-form').areYouSure( {
+        change: function() {
+                  // Enable save button only if the form is dirty. i.e. something to save.
+                  if ($(this).hasClass('dirty')) {
+                    $(this).find('input[type="submit"]').removeAttr('disabled');
+                  } else {
+                    $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+                  }
+                }
+      } );
+    
 }
 ```
 To ignore selected fields from the dirtyness check: 
