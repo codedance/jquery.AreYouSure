@@ -12,9 +12,9 @@ function:
 $('form').areYouSure();
 ```
 
-*Are-you-sure* is a minimal plugin for modern browsers.  There of plenty of 
+*Are-you-sure* is a minimal plugin for modern browsers.  There are plenty of 
 "dirty forms" implementations out there, however they all seemed very 
-heavyweight and over-engineered...! Most where written some time back and 
+heavyweight and over-engineered...! Most were written some time back and 
 contain many 'hacks' to support legacy browsers, and/or rely on other fat 
 dependencies such as FaceBox or jQueryUI.  *Are-you-sure* solves this by
 doing this simple task in the simplest possible way.
