@@ -67,15 +67,15 @@ $(function() {
 To ignore selected fields from the dirtyness check: 
 
 ```html
-    <form id="myForm" name="myform" action="/post" method="post">
+  <form id="myForm" name="myform" action="/post" method="post">
 
-        Text:                           <input type="text" name="text1"> <br />
-        Text (ignored with attribute):  <input type="text" name="text2" data-ays-ignore="true"> <br />
-        Text (ignored with class):      <input type="text" name="text2" class="ays-ignore"> <br />
+    Field 1: (checked)                  <input type="text" name="field1"> <br />
+    Field 2: (ignored with attribute):  <input type="text" name="field2" data-ays-ignore="true"> <br />
+    Field 3: (ignored with class):      <input type="text" name="field3" class="ays-ignore"> <br />
 
-        <input type="submit" value="Submit">
+    <input type="submit" value="Submit">
 
-	</form>
+  </form>
 ```
 
 
