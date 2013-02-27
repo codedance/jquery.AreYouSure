@@ -93,6 +93,10 @@ This [demo page](http://www.papercut.com/products/free_software/are-you-sure/dem
 hosts a number of example forms.
 
 
+###Known Issues & Limitations
+ * The custom message option may not work on Firefox ([Firefox bug 588292](https://bugzilla.mozilla.org/show_bug.cgi?id=588292)).
+ * The ```windows.beforeunload``` event is not supported on current Opera (Feb 2013).  This will change with their move to WebKit.
+
 ###Future
 The aim is to keep *Are-you-sure* simple and light. If you think you have a good idea which is aligned
 with this objective, please voice your thoughts in the issues list.
