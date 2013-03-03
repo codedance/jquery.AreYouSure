@@ -2,8 +2,8 @@ Are You Sure?  - A light "dirty forms" JQuery Plugin!
 ======
 
 *Are-you-sure* (```jquery.are-you-sure.js```) is simple light-weight "dirty 
-forms" JQuery Plugin for modern browsers.  It helps prevent users from losing 
-unsaved form changes.
+form" JQuery Plugin for modern browsers.  It helps prevent users from losing 
+unsaved HTML Form changes.
 
 It's simple to use.  Just add the following line to your page's ready 
 function:
