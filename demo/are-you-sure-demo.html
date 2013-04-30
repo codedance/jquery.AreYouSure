@@ -121,8 +121,8 @@
     <form id="example-1-form" name="coffeeOrder1" method="post">
       <h2>Enter Your Coffee Order</h2>
       <div>
-        <label for="coffee">Coffee</label>
-        <select name="coffee">
+        <label for="example-1-coffee">Coffee</label>
+        <select name="coffee" id="example-1-coffee">
           <option value="espresso">Espresso</option>
           <option value="dbl-espresso">Caffe Doppio</option>
           <option value="latte">Caffe Latte</option>
@@ -131,16 +131,17 @@
         </select>
       </div>
       <div>
-        <label for="shots">Shots</label><br />
+        <label>Shots</label><br />
         <input type="radio" name="shots" value="1" checked /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" /> 2 Shots - Morning wakeup!<br />
         <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
-        <label for="sugar">Sugar</label> <input type="text" name="sugar" value="0" />
+        <label for="example-1-sugar">Sugar</label> <input type="text" name="sugar" value="0" id="example-1-sugar" />
       </div>
       <div>
-        <label for="instructions">Special Instructions</label> <textarea name="instructions" rows="5"></textarea>
+        <label for="example-1-instructions">Special Instructions</label>
+        <textarea name="instructions" rows="5" id="example-1-instructions"></textarea>
       </div>
 
       <div class="buttons">
@@ -162,14 +163,15 @@
       <h2>Enter Your Coffee Order</h2>
       <div>
         <!-- The ays-ignore class means a change on this field is not considered "dirty" -->
-        <label for="pickup">Pickup Time</label> <input class="ays-ignore" type="text" name="pickup" id="pickup" />
+        <label for="pickup">Pickup Time</label>
+        <input class="ays-ignore" type="text" name="pickup" id="pickup" />
         <!-- or you can use a data attribute like this: 
         <label for="pickup">Pickup Time</label> <input data-ays-ignore="true" type="text" name="pickup" id="pickup" />
         -->
       </div>
       <div>
-        <label for="coffee">Coffee</label>
-        <select name="coffee">
+        <label for="example-2-coffee">Coffee</label>
+        <select name="coffee" id="example-2-coffee">
           <option value="espresso">Espresso</option>
           <option value="dbl-espresso">Caffe Doppio</option>
           <option value="latte">Caffe Latte</option>
@@ -178,16 +180,17 @@
         </select>
       </div>
       <div>
-        <label for="shots">Shots</label><br />
+        <label>Shots</label><br />
         <input type="radio" name="shots" value="1" checked /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" /> 2 Shots - Morning wakeup!<br />
         <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
-        <label for="sugar">Sugar</label> <input type="text" name="sugar" value="0" />
+        <label for="example-2-sugar">Sugar</label> <input type="text" name="sugar" value="0" id="example-2-sugar" />
       </div>
       <div>
-        <label for="instructions">Special Instructions</label> <textarea name="instructions" rows="5"></textarea>
+        <label for="example-2-instructions">Special Instructions</label>
+        <textarea name="instructions" rows="5" id="example-2-instructions"></textarea>
       </div>
 
       <div class="buttons">
@@ -209,8 +212,8 @@
     <form id="example-3-form" name="coffeeOrder3" method="post">
       <h2>Update My Standard Order</h2>
       <div>
-        <label for="coffee">Coffee</label>
-        <select name="coffee">
+        <label for="example-3-coffee">Coffee</label>
+        <select name="coffee" id="example-3-coffee">
           <option value="cappuccino">Cappuccino</option>
           <option value="espresso">Espresso</option>
           <option value="dbl-espresso">Caffe Doppio</option>
@@ -219,16 +222,18 @@
         </select>
       </div>
       <div>
-        <label for="shots">Shots</label><br />
+        <label>Shots</label><br />
         <input type="radio" name="shots" value="1" /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" checked /> 2 Shots - Morning wakeup!<br />
         <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
-        <label for="sugar">Sugar</label> <input type="text" name="sugar" value="1" />
+        <label for="example-3-sugar">Sugar</label>
+        <input type="text" name="sugar" value="1" id="example-3-sugar" />
       </div>
       <div>
-        <label for="instructions">Special Instructions</label> <textarea name="instructions" rows="5">No chocolate please</textarea>
+        <label for="example-3-instructions">Special Instructions</label>
+        <textarea name="instructions" rows="5" id="example-3-instructions">No chocolate please</textarea>
       </div>
 
       <div class="buttons">
@@ -246,5 +251,3 @@
 
   </body>
 </html>
-
-
