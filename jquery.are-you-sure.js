@@ -27,6 +27,14 @@
         return null;
       }
 
+      if ($field.is(':disabled')) {
+        /*
+         * Given disabled fields don't submit we use a static marker (and the real value is ignored). If the field is
+         * later enabled the actual value will be used and the form will become dirty.
+         */
+        return 'ays-disabled';
+      }
+
       var val;
       var type = $field.attr('type');
       if ($field.is('select')) {
@@ -49,11 +57,6 @@
           break;
         default:
           val = $field.val();
-      }
-
-      if ($field.is(':disabled')) {
-        // for disabled fields we prepend a marker as a simple way to later determine if the disabled state has changed
-        val = 'ays-disabled-' + val;
       }
 
       return val;
