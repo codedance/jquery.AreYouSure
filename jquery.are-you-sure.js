@@ -28,10 +28,6 @@
       }
 
       if ($field.is(':disabled')) {
-        /*
-         * Given disabled fields don't submit we use a static marker (and the real value is ignored). If the field is
-         * later enabled the actual value will be used and the form will become dirty.
-         */
         return 'ays-disabled';
       }
 

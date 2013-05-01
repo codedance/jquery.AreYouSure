@@ -104,13 +104,15 @@ with this objective, please voice your thoughts in the issues list.
 
 ###Release History
 
-**2012-10-24** - Initial public release.
+**2013-05-01** - Added support for hidden and disabled form fields.
 
-**2012-10-26** - Use dashes in class names rather than camel case.
+**2013-02-03** - Add demo page.
 
 **2013-01-28** - Add ```change``` event support and a demo page.
 
-**2013-02-03** - Add demo page.
+**2012-10-26** - Use dashes in class names rather than camel case.
+
+**2012-10-24** - Initial public release.
 
 
 ###Prerequisites
