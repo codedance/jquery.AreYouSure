@@ -3,7 +3,7 @@
   <head>
     <title>jQuery Plugin Demo: Are You Sure? - a dirty forms plugin</title>
 
-    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
     <script src="../jquery.are-you-sure.js"></script>
     <script>
 
@@ -34,6 +34,38 @@
                     }
           }
         );
+
+        /*
+         * Example 4
+         *  - extra shots button to enable/disable shots options
+         *  - like/unlike button (changing hidden form field value)
+         *  - hook dirty change event to enable/disable submit, to more easily demonstrate when the form is dirty
+         */
+        $('#example-4-extra-shots').click(function() {
+          // we trigger a change event on the fields so that the areYouSure event handler is called
+          $('#example-4-form input[name=shots]').removeAttr('disabled').change();
+          $('#example-4-extra-shots').hide();
+          $('#example-4-shots-options').show();
+          return false;
+        });
+        $('#example-4-like-button').click(function() {
+          var currentLike = $('#example-4-like').val() == 'true';
+          var newLike = !currentLike;
+          // we trigger a change event on the fields so that the areYouSure event handler is called
+          $('#example-4-like').val(newLike).change();
+          $('#example-4-like-button').text(newLike ? 'Unlike' : 'Like');
+          return false;
+        });
+        $('#example-4-form').areYouSure({
+          change: function() {
+            // Enable save button only if the form is dirty.
+            if ($(this).hasClass('dirty')) {
+              $(this).find('input[type="submit"]').removeAttr('disabled');
+            } else {
+              $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+            }
+          }
+        });
 
       });
 
@@ -72,7 +104,8 @@
       }
       form > div  input[type="text"],
       form > div  textarea,
-      form > div  select {
+      form > div  select,
+      form > div button {
         float: right;
         width: 200px;
       }
@@ -121,8 +154,8 @@
     <form id="example-1-form" name="coffeeOrder1" method="post">
       <h2>Enter Your Coffee Order</h2>
       <div>
-        <label for="coffee">Coffee</label>
-        <select name="coffee">
+        <label for="example-1-coffee">Coffee</label>
+        <select name="coffee" id="example-1-coffee">
           <option value="espresso">Espresso</option>
           <option value="dbl-espresso">Caffe Doppio</option>
           <option value="latte">Caffe Latte</option>
@@ -131,16 +164,17 @@
         </select>
       </div>
       <div>
-        <label for="shots">Shots</label><br />
+        <label>Shots</label><br />
         <input type="radio" name="shots" value="1" checked /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" /> 2 Shots - Morning wakeup!<br />
         <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
-        <label for="sugar">Sugar</label> <input type="text" name="sugar" value="0" />
+        <label for="example-1-sugar">Sugar</label> <input type="text" name="sugar" value="0" id="example-1-sugar" />
       </div>
       <div>
-        <label for="instructions">Special Instructions</label> <textarea name="instructions" rows="5"></textarea>
+        <label for="example-1-instructions">Special Instructions</label>
+        <textarea name="instructions" rows="5" id="example-1-instructions"></textarea>
       </div>
 
       <div class="buttons">
@@ -162,14 +196,15 @@
       <h2>Enter Your Coffee Order</h2>
       <div>
         <!-- The ays-ignore class means a change on this field is not considered "dirty" -->
-        <label for="pickup">Pickup Time</label> <input class="ays-ignore" type="text" name="pickup" id="pickup" />
+        <label for="pickup">Pickup Time</label>
+        <input class="ays-ignore" type="text" name="pickup" id="pickup" />
         <!-- or you can use a data attribute like this: 
         <label for="pickup">Pickup Time</label> <input data-ays-ignore="true" type="text" name="pickup" id="pickup" />
         -->
       </div>
       <div>
-        <label for="coffee">Coffee</label>
-        <select name="coffee">
+        <label for="example-2-coffee">Coffee</label>
+        <select name="coffee" id="example-2-coffee">
           <option value="espresso">Espresso</option>
           <option value="dbl-espresso">Caffe Doppio</option>
           <option value="latte">Caffe Latte</option>
@@ -178,16 +213,17 @@
         </select>
       </div>
       <div>
-        <label for="shots">Shots</label><br />
+        <label>Shots</label><br />
         <input type="radio" name="shots" value="1" checked /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" /> 2 Shots - Morning wakeup!<br />
         <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
-        <label for="sugar">Sugar</label> <input type="text" name="sugar" value="0" />
+        <label for="example-2-sugar">Sugar</label> <input type="text" name="sugar" value="0" id="example-2-sugar" />
       </div>
       <div>
-        <label for="instructions">Special Instructions</label> <textarea name="instructions" rows="5"></textarea>
+        <label for="example-2-instructions">Special Instructions</label>
+        <textarea name="instructions" rows="5" id="example-2-instructions"></textarea>
       </div>
 
       <div class="buttons">
@@ -209,8 +245,8 @@
     <form id="example-3-form" name="coffeeOrder3" method="post">
       <h2>Update My Standard Order</h2>
       <div>
-        <label for="coffee">Coffee</label>
-        <select name="coffee">
+        <label for="example-3-coffee">Coffee</label>
+        <select name="coffee" id="example-3-coffee">
           <option value="cappuccino">Cappuccino</option>
           <option value="espresso">Espresso</option>
           <option value="dbl-espresso">Caffe Doppio</option>
@@ -219,18 +255,71 @@
         </select>
       </div>
       <div>
-        <label for="shots">Shots</label><br />
+        <label>Shots</label><br />
         <input type="radio" name="shots" value="1" /> 1 Shot - Standard<br />
         <input type="radio" name="shots" value="2" checked /> 2 Shots - Morning wakeup!<br />
         <input type="radio" name="shots" value="3" /> 3 Shots - Overdrive!<br />
       </div>
       <div>
-        <label for="sugar">Sugar</label> <input type="text" name="sugar" value="1" />
+        <label for="example-3-sugar">Sugar</label>
+        <input type="text" name="sugar" value="1" id="example-3-sugar" />
       </div>
       <div>
-        <label for="instructions">Special Instructions</label> <textarea name="instructions" rows="5">No chocolate please</textarea>
+        <label for="example-3-instructions">Special Instructions</label>
+        <textarea name="instructions" rows="5" id="example-3-instructions">No chocolate please</textarea>
       </div>
 
+      <div class="buttons">
+        <input type="submit" value="Save" disabled="disabled">
+      </div>
+      <div>
+        <p>... or visit <a href="http://www.google.com/">Google</a> or close the window without saving!</p>
+      </div>
+    </form>
+
+    <h2>Example 4: Edge cases</h2>
+    <p>
+      This example demonstrates tracking of hidden and disabled form elements that are changed by non-input elements.
+      E.g.:
+    </p>
+    <ul>
+      <li>clicking a link or non-input button that changes the value of a hidden form field, or</li>
+      <li>
+        clicking a link or non-input button that enables or disables some form fields (which has an effect on whether
+        or not those fields will be submitted with the form, despite the values not changing).
+      </li>
+    </ul>
+    <form id="example-4-form" name="coffeeOrder4" method="post">
+      <h2>Update My Standard Order</h2>
+      <div>
+        <label for="example-4-coffee">Coffee</label>
+        <select name="coffee" id="example-3-coffee">
+          <option value="cappuccino">Cappuccino</option>
+          <option value="espresso">Espresso</option>
+          <option value="dbl-espresso">Caffe Doppio</option>
+          <option value="latte">Caffe Latte</option>
+          <option value="macciato">Machhiato</option>
+        </select>
+      </div>
+      <div>
+        <label>Shots</label>
+        <!--
+          The visually hidden "shots" radio buttons are disabled and would not normally be submitted with the form.
+          Clicking the following button will visually show and enable these buttons, resulting in a form state change
+          (and hence the form is considered dirty) without the values having changed.
+        -->
+        <button id="example-4-extra-shots">I want extra shots</button>
+        <div id="example-4-shots-options" style="display: none;">
+          <input type="radio" name="shots" value="1" disabled /> 1 Shot - Standard<br />
+          <input type="radio" name="shots" value="2" disabled /> 2 Shots - Morning wakeup!<br />
+          <input type="radio" name="shots" value="3" disabled /> 3 Shots - Overdrive!<br />
+        </div>
+      </div>
+      <div>
+        <label>Do you like us?</label>
+        <input type="hidden" name="like" value="false" id="example-4-like" />
+        <button id="example-4-like-button">Like</button>
+      </div>
       <div class="buttons">
         <input type="submit" value="Save" disabled="disabled">
       </div>
@@ -246,5 +335,3 @@
 
   </body>
 </html>
-
-

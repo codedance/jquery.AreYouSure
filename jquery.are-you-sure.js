@@ -7,8 +7,8 @@
  * http://jquery.org/license
  *
  * Author:   chris.dance@papercut.com
- * Version:  1.1.0
- * Date:     3rd Feb 2013
+ * Version:  1.2.0
+ * Date:     1st May 2013
  */
 (function($) {
   $.fn.areYouSure = function(options) {
@@ -17,7 +17,7 @@
             'message' : 'You have unsaved changes!',
             'dirtyClass' : 'dirty',
             'change' : null,
-            'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio']"
+            'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden']"
           }, options);
 
     var getValue = function($field) {
@@ -25,6 +25,14 @@
           || $field.hasClass('aysIgnore')
           || $field.attr('data-ays-ignore')) {
         return null;
+      }
+
+      if ($field.is(':disabled')) {
+        /*
+         * Given disabled fields don't submit we use a static marker (and the real value is ignored). If the field is
+         * later enabled the actual value will be used and the form will become dirty.
+         */
+        return 'ays-disabled';
       }
 
       var val;
@@ -50,6 +58,7 @@
         default:
           val = $field.val();
       }
+
       return val;
     };
 
