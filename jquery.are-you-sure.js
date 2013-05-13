@@ -85,8 +85,12 @@
           }
         });
       }
-      var changed = isDirty != $form.hasClass(settings.dirtyClass);
 
+      markDirty($form, isDirty);
+    };
+    
+    var markDirty = function($form, isDirty) {
+      var changed = isDirty != $form.hasClass(settings.dirtyClass);
       $form.toggleClass(settings.dirtyClass, isDirty);
 
       // Fire change event if required
@@ -113,6 +117,7 @@
 
       $(this).find(settings.fieldSelector).each(storeOrigValue);
       $(this).find(settings.fieldSelector).bind('change keyup', checkForm);
+      $(this).bind('reset', function() { markDirty($(this), false); });
     });
   };
 })(jQuery);
