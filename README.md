@@ -104,6 +104,8 @@ with this objective, please voice your thoughts in the issues list.
 
 ###Release History
 
+**2013-05-14** - Added support for form reset buttons (contributed by codev).
+
 **2013-05-01** - Added support for hidden and disabled form fields.
 
 **2013-02-03** - Add demo page.
