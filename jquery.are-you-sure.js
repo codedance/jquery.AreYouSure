@@ -7,8 +7,8 @@
  * http://jquery.org/license
  *
  * Author:   chris.dance@papercut.com
- * Version:  1.3.0
- * Date:     14th May 2013
+ * Version:  1.3.1
+ * Date:     24th July 2013
  */
 (function($) {
   $.fn.areYouSure = function(options) {
@@ -23,7 +23,8 @@
     var getValue = function($field) {
       if ($field.hasClass('ays-ignore')
           || $field.hasClass('aysIgnore')
-          || $field.attr('data-ays-ignore')) {
+          || $field.attr('data-ays-ignore')
+          || $field.attr('name') === undefined) {
         return null;
       }
 
