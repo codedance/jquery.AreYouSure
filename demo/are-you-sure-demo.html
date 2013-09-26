@@ -8,11 +8,12 @@
     We'll use an old version of jQuery to show we're backwards compatible. In 
     production we recommend using the latest version. e.g.
 
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
     -->
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
-    <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <!-- <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script> -->
     <script src="../jquery.are-you-sure.js"></script>
     <script>
 
@@ -75,6 +76,12 @@
             }
           }
         });
+
+        window.setTimeout(function() {
+            $('#example-1-form').append('<input type="checkbox" name="remember" value="true" /> Remember my order<br />');
+            $('#example-1-form').trigger('aysRescan');
+        }, 2000);
+
 
       });
 

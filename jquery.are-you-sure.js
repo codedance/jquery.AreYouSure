@@ -7,8 +7,8 @@
  * http://jquery.org/license
  *
  * Author:   chris.dance@papercut.com
- * Version:  1.3.1
- * Date:     24th July 2013
+ * Version:  1.4.0
+ * Date:     26th Oct 2013
  */
 (function($) {
   $.fn.areYouSure = function(options) {
@@ -17,7 +17,8 @@
             'message' : 'You have unsaved changes!',
             'dirtyClass' : 'dirty',
             'change' : null,
-            'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden']"
+            'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden']",
+            'trackingOnly' : false
           }, options);
 
     var getValue = function($field) {
@@ -95,30 +96,48 @@
       $form.toggleClass(settings.dirtyClass, isDirty);
 
       // Fire change event if required
-      if (changed && settings.change) {
-        settings.change.call($form, $form);
+      if (changed) {
+        if (settings.change) {
+          settings.change.call($form, $form);
+        }
+        $form.trigger('aysChange', [$form]);
       }
     };
 
-    $(window).bind('beforeunload', function() {
-      $dirtyForms = $("form").filter('.' + settings.dirtyClass);
-      if ($dirtyForms.length > 0) {
-        // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
-        return settings.message;
-      }
-    });
+    var rescan = function() {
+      var $form = $(this);
+      var newFields = $form.find(settings.fieldSelector).not("[ays-orig]");
+      $(newFields).each(storeOrigValue);
+      $(newFields).bind('change keyup', checkForm);
+    };
+
+    if (!settings.trackingOnly) {
+      $(window).bind('beforeunload', function() {
+        $dirtyForms = $("form").filter('.' + settings.dirtyClass);
+        if ($dirtyForms.length > 0) {
+          // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
+          return settings.message;
+        }
+      });
+    }
 
     return this.each(function(elem) {
       if (!$(this).is('form')) {
         return;
       }
-      $(this).submit(function() {
-        $(this).removeClass(settings.dirtyClass);
-      });
+      var $form = $(this);
 
-      $(this).find(settings.fieldSelector).each(storeOrigValue);
-      $(this).find(settings.fieldSelector).bind('change keyup', checkForm);
-      $(this).bind('reset', function() { markDirty($(this), false); });
+      $form.submit(function() {
+        $form.removeClass(settings.dirtyClass);
+      });
+      $form.bind('reset', function() { markDirty($form, false); });
+      // Add a custom event to support dynamic addition of new fields
+      $form.bind('aysRescan', rescan); 
+
+      var fields = $form.find(settings.fieldSelector);
+      $(fields).each(storeOrigValue);
+      $(fields).bind('change keyup', checkForm);
+
     });
   };
 })(jQuery);
