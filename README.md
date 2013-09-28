@@ -30,7 +30,7 @@ doing this simple task in the simplest possible way.
  * Graceful degradation on legacy browsers (i.e. if you're running an old 
    browser... remember to save :-)
 
-###Usage
+###Basic Usage
 
 ```javascript
 
@@ -45,23 +45,6 @@ $(function() {
     // With a custom message
     $('form').areYouSure( {'message':'Your profile details are not saved!'} );
 
-    // Test if a form is dirty in your own code
-    if ($('#my-form').hasClass('dirty')) {
-        // Do something
-    }
-
-    // Advanced: Hook a dirty change event to enable the "save" button.
-    $('#my-adv-form').areYouSure( {
-        change: function() {
-                  // Enable save button only if the form is dirty. i.e. something to save.
-                  if ($(this).hasClass('dirty')) {
-                    $(this).find('input[type="submit"]').removeAttr('disabled');
-                  } else {
-                    $(this).find('input[type="submit"]').attr('disabled', 'disabled');
-                  }
-                }
-      } );
-    
 }
 ```
 To ignore selected fields from the dirtyness check: 
@@ -78,14 +61,77 @@ To ignore selected fields from the dirtyness check:
   </form>
 ```
 
+###Advanced Usage
+
+```javascript
+
+$(function() {
+
+    /*
+    *  Disable the Warning Message (tracking/monitoring only)
+    *  This option is useful when you wish to use the dirty/save events and/or
+    *  use the dirtyness tracking in your own beforeunload handler.
+    */
+    $('form').areYouSure( {'disableMessage':true} );
+
+    /*
+    *  Dirtyness Change Events
+    *  Are-You-Sure fires off "dirty" and "clean" events when the form's state
+    *  changes. You can bind() or on(), these events to implement your own form
+    *  state logic.  A good example is enabeling/disablening a Save button.
+    *
+    *  "this" refers to the form that fired the event.
+    */
+    $('form').bind('dirty.ays', function() {
+      // Enable save button only as the form is dirty.
+      $(this).find('input[type="submit"]').removeAttr('disabled');
+    });
+    $('form').bind('clean.ays', function() {
+      // For is clean so nothing to save - disable the save button.
+      $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+    });
+
+    /*
+    *  It's easy to test if a form is dirty in your own code - just check
+    *  to see if it has a "dirty" CSS class.
+    */
+    if ($('#my-form').hasClass('dirty')) {
+        // Do something
+    }
+
+    /*
+    *  If you're dynamically adding new fields, and would like to track 
+    *  their state, trigger Are-You-Sure to rescan the form like this.
+    */
+    $('#my-form').trigger('rescan.ays');
+    
+    /*
+    *  As an alternative to using events, you can pass in a custom change 
+    *  function.
+    */
+    $('#my-adv-form').areYouSure({
+        change: function() {
+                  // Enable save button only if the form is dirty. i.e. something to save.
+                  if ($(this).hasClass('dirty')) {
+                    $(this).find('input[type="submit"]').removeAttr('disabled');
+                  } else {
+                    $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+                  }
+                }
+    });
+    
+}
+```
+
 
 ###Install
-This plugin is very light weight. You could download the 
+Are-You-Sure is a light-weight jQuery plugin. It's a single JavaScript 
+file. You can download the 
 [jquery.are-you-sure.js](https://raw.github.com/codedance/jquery.AreYouSure/master/jquery.are-you-sure.js)
-file however my recommendation is to simply 
-cut-n-paste the code (and license header) into one of your existing 
-JavaScript files... it seems a shame to add an extra browser round 
-trip for such a simple feature :-)
+file and include it in your page, however it seems a shame to add an extra 
+browser round trip for such a simple feature.  You should consider 
+concatenating  it with other common JS lib files, and/or even cut-n-pasting 
+the code (and license header) into one of your existing JavaScript files.
 
 
 ###Demo
@@ -97,12 +143,19 @@ hosts a number of example forms.
  * The custom message option may not work on Firefox ([Firefox bug 588292](https://bugzilla.mozilla.org/show_bug.cgi?id=588292)).
  * The ```windows.beforeunload``` event is not supported on current Opera (Feb 2013).  This will change with their move to WebKit.
 
+
 ###Future
-The aim is to keep *Are-you-sure* simple and light. If you think you have a good idea which is aligned
-with this objective, please voice your thoughts in the issues list.
+The aim is to keep *Are-you-sure* simple and light. If you think you have 
+a good idea which is aligned with this objective, please voice your thoughts 
+in the issues list.
 
 
 ###Release History
+
+**2013-09-30** 
+* Added dirty and clean "events" 
+* Added an option to disable the message (dirty tracking only)
+* Added an option to rescan a form to look/detect any new fields
 
 **2013-07-24** - Minor fix - don't fail if form elements have no "name" attribute.
 
@@ -120,7 +173,7 @@ with this objective, please voice your thoughts in the issues list.
 
 
 ###Prerequisites
-jQuery version 1.4.2 or higher. 
+jQuery version 1.4.2 or higher. 1.10+ recommended.
 
 
 ###License

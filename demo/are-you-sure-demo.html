@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>jQuery Plugin Demo: Are You Sure? - a dirty forms plugin</title>
+    <title>Demo: Are You Sure? - a dirty forms jQuery Plugin</title>
 
     <!-- 
 
     We'll use an old version of jQuery to show we're backwards compatible. In 
-    production we recommend using the latest version. e.g.
+    production we recommend using a later version. e.g.
 
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-
-    -->
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
-    <!-- <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script> -->
+    -->
+
+    <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
     <script src="../jquery.are-you-sure.js"></script>
     <script>
 
@@ -30,43 +30,66 @@
         $('#pickup').val(defaultPickup15min.getHours() + ':' + defaultPickup15min.getMinutes());
 
 
-        // Example 3 - custom message and hooking the dirty change event
+        // Example 3 - custom message and hooking the dirty change events
         $('#example-3-form').areYouSure(
           {
-            message: "Did you forget to save your standard coffee order?",
-            change: function() {
-                      // Enable save button only if the form is dirty.
-                      if ($(this).hasClass('dirty')) {
-                        $(this).find('input[type="submit"]').removeAttr('disabled');
-                      } else {
-                        $(this).find('input[type="submit"]').attr('disabled', 'disabled');
-                      }
-                    }
+            message: "Did you forget to save your standard coffee order?"
           }
         );
+        // Enable save button only if the form is dirty - using events.
+        $('#example-3-form').bind('dirty.ays', function() {
+          $(this).find('input[type="submit"]').removeAttr('disabled');
+        });
+        $('#example-3-form').bind('clean.ays', function() {
+          $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+        });
+
+
+        // Example 4 - dynamicallly add form fields and track them.
+        $('#example-4-form').areYouSure(
+          {
+            message: "Did you forget to submit your coffee order?"
+          }
+        );
+        // If it's warm enough, offer an iced coffee special.
+        $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Melbourne,AU&mode=json&units=metric&callback=?", 
+          function(data) {
+            var temp = data.main.temp;
+            if (temp > 5) {
+              $('#example-4-special').append('<p>It\'s currently ' + temp + 'C in Melbourne. Ice it up!</p>'); 
+              $('#example-4-special').append('<input type="checkbox" name="make-it-iced" value="true" />' 
+                  + ' Make it an iced coffee<br />');
+
+              // Trigger rescan event on the form so we start tracking the new field.
+              $('#example-4-form').trigger('rescan.ays');
+            }
+          }
+        );
+        
 
         /*
-         * Example 4
+         * Example 5
          *  - extra shots button to enable/disable shots options
          *  - like/unlike button (changing hidden form field value)
-         *  - hook dirty change event to enable/disable submit, to more easily demonstrate when the form is dirty
+         *  - hook dirty change event to enable/disable submit (using method), 
+         *    to more easily demonstrate when the form is dirty
          */
-        $('#example-4-extra-shots').click(function() {
+        $('#example-5-extra-shots').click(function() {
           // we trigger a change event on the fields so that the areYouSure event handler is called
-          $('#example-4-form input[name=shots]').removeAttr('disabled').change();
-          $('#example-4-extra-shots').hide();
-          $('#example-4-shots-options').show();
+          $('#example-5-form input[name=shots]').removeAttr('disabled').change();
+          $('#example-5-extra-shots').hide();
+          $('#example-5-shots-options').show();
           return false;
         });
-        $('#example-4-like-button').click(function() {
-          var currentLike = $('#example-4-like').val() == 'true';
+        $('#example-5-like-button').click(function() {
+          var currentLike = $('#example-5-like').val() == 'true';
           var newLike = !currentLike;
           // we trigger a change event on the fields so that the areYouSure event handler is called
-          $('#example-4-like').val(newLike).change();
-          $('#example-4-like-button').text(newLike ? 'Unlike' : 'Like');
+          $('#example-5-like').val(newLike).change();
+          $('#example-5-like-button').text(newLike ? 'Unlike' : 'Like');
           return false;
         });
-        $('#example-4-form').areYouSure({
+        $('#example-5-form').areYouSure({
           change: function() {
             // Enable save button only if the form is dirty.
             if ($(this).hasClass('dirty')) {
@@ -76,12 +99,6 @@
             }
           }
         });
-
-        window.setTimeout(function() {
-            $('#example-1-form').append('<input type="checkbox" name="remember" value="true" /> Remember my order<br />');
-            $('#example-1-form').trigger('aysRescan');
-        }, 2000);
-
 
       });
 
@@ -106,8 +123,11 @@
       }
 
       /* A bit of custom styling on example 3 */
-      #example-3-form.dirty {
-        border: 1px dashed red;
+      #example-3-form.dirty, #example-4-form.dirty {
+        box-shadow: 0 0 8px rgba(255, 0, 0, 1);
+        -webkit-box-shadow: 0 0 8px rgba(255, 0, 0, 1); 
+        -moz-box-shadow: 0 0 8px rgba(255, 0, 0, 1);
+        border:1px solid rgba(255,0,0, 0.8);
       }
 
       form h2 {
@@ -255,9 +275,10 @@
 
     <h2>Example 3: Lets be intelligent!</h2>
     <p>
-      This is a more advanced example.  The <code>change</code> event is intercepted so the save button is 
-      only enabled if the form is dirty.  It also demonstrates how to customize the warning message and 
-      change the style of a dirty form.
+      This is a more advanced example.  The <code>dirty</code> and <code>clean</code> change events are 
+      intercepted so the save button is only enabled if the form is dirty.  It also demonstrates how to 
+      customize the warning message and change the style of a dirty form (CSS styling using the 
+      <code>.dirty</code> class).
     </p>
     <form id="example-3-form" name="coffeeOrder3" method="post">
       <h2>Update My Standard Order</h2>
@@ -294,7 +315,32 @@
       </div>
     </form>
 
-    <h2>Example 4: Edge cases</h2>
+    <h2>Example 4: Lets be dynamic!</h2>
+    <p>
+      In this example we'll dymaically add a field and fire off the <code>rescan</code> event. Any
+      changes to the new field(s) from then on will cause the form to mark as dirty.
+    </p>
+    <form id="example-4-form" name="coffeeOrder4" method="post">
+      <h2>Order Coffee For Pickup Now</h2>
+      <div>
+        <label for="example-3-coffee">Coffee</label>
+        <select name="coffee" id="example-3-coffee">
+          <option value="cappuccino">Cappuccino</option>
+          <option value="espresso">Espresso</option>
+          <option value="dbl-espresso">Caffe Doppio</option>
+          <option value="latte">Caffe Latte</option>
+        </select>
+      </div>
+      <div id="example-4-special"></div>
+      <div class="buttons">
+        <input type="submit" value="Place Order">
+      </div>
+      <div>
+        <p>... or visit <a href="http://www.google.com/">Google</a> or close the window without saving!</p>
+      </div>
+    </form>
+
+    <h2>Example 5: Edge cases</h2>
     <p>
       This example demonstrates tracking of hidden and disabled form elements that are changed by non-input elements.
       E.g.:
@@ -306,10 +352,10 @@
         or not those fields will be submitted with the form, despite the values not changing).
       </li>
     </ul>
-    <form id="example-4-form" name="coffeeOrder4" method="post">
+    <form id="example-5-form" name="coffeeOrder5" method="post">
       <h2>Update My Standard Order</h2>
       <div>
-        <label for="example-4-coffee">Coffee</label>
+        <label for="example-5-coffee">Coffee</label>
         <select name="coffee" id="example-3-coffee">
           <option value="cappuccino">Cappuccino</option>
           <option value="espresso">Espresso</option>
@@ -325,8 +371,8 @@
           Clicking the following button will visually show and enable these buttons, resulting in a form state change
           (and hence the form is considered dirty) without the values having changed.
         -->
-        <button id="example-4-extra-shots">I want extra shots</button>
-        <div id="example-4-shots-options" style="display: none;">
+        <button id="example-5-extra-shots">I want extra shots</button>
+        <div id="example-5-shots-options" style="display: none;">
           <input type="radio" name="shots" value="1" disabled /> 1 Shot - Standard<br />
           <input type="radio" name="shots" value="2" disabled /> 2 Shots - Morning wakeup!<br />
           <input type="radio" name="shots" value="3" disabled /> 3 Shots - Overdrive!<br />
@@ -334,8 +380,8 @@
       </div>
       <div>
         <label>Do you like us?</label>
-        <input type="hidden" name="like" value="false" id="example-4-like" />
-        <button id="example-4-like-button">Like</button>
+        <input type="hidden" name="like" value="false" id="example-5-like" />
+        <button id="example-5-like-button">Like</button>
       </div>
       <div class="buttons">
         <input type="submit" value="Save" disabled="disabled">
