@@ -3,7 +3,7 @@ Are You Sure?  - A light "dirty forms" JQuery Plugin!
 
 *Are-you-sure* (```jquery.are-you-sure.js```) is simple light-weight "dirty 
 form" JQuery Plugin for modern browsers.  It helps prevent users from losing 
-unsaved HTML Form changes.
+unsaved HTML Form changes by promoting the user to save/submit.
 
 It's simple to use.  Just add the following line to your page's ready 
 function:
@@ -78,7 +78,7 @@ $(function() {
     *  Dirtyness Change Events
     *  Are-You-Sure fires off "dirty" and "clean" events when the form's state
     *  changes. You can bind() or on(), these events to implement your own form
-    *  state logic.  A good example is enabeling/disablening a Save button.
+    *  state logic.  A good example is enabling/disabling a Save button.
     *
     *  "this" refers to the form that fired the event.
     */
@@ -122,16 +122,18 @@ $(function() {
     
 }
 ```
+The [demo page](http://www.papercut.com/products/free_software/are-you-sure/demo/are-you-sure-demo.html)
+shows the advanced usage options in more detail.
 
 
 ###Install
-Are-You-Sure is a light-weight jQuery plugin. It's a single JavaScript 
-file. You can download the 
+Are-You-Sure is a light-weight jQuery plugin - it's a single standalone 
+JavaScript file. You can download the 
 [jquery.are-you-sure.js](https://raw.github.com/codedance/jquery.AreYouSure/master/jquery.are-you-sure.js)
-file and include it in your page, however it seems a shame to add an extra 
-browser round trip for such a simple feature.  You should consider 
-concatenating  it with other common JS lib files, and/or even cut-n-pasting 
-the code (and license header) into one of your existing JavaScript files.
+file and include it in your page. Because it's so simple it seems a shame 
+to add an extra browser round trip. It's recommended that you consider
+concatenating it with other common JS lib files, and/or even cut-n-pasting 
+the code (and license header) into one of your existing JS files.
 
 
 ###Demo

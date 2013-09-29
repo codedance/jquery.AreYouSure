@@ -1,12 +1,13 @@
 {
     "name": "are-you-sure",
     "title": "Are You Sure? - a dirty forms check plugin",
-    "description": "Are-you-sure is simple light-weight dirty forms JQuery Plugin for modern browsers. It helps prevent users from loosing unsaved form changes. It's dependency free and designed for modern browsers... just the features you need and nothing more! See the project page and demo for usage and examples.",
+    "description": "Are-you-sure is simple light-weight dirty forms JQuery Plugin for modern browsers. It helps prevent users from loosing unsaved form changes by prompting the user to save/submit. It's dependency free and designed for modern browsers... just the features you need and nothing more! See the project page and demo for usage and examples.",
     "keywords": [
         "form",
         "dirty",
         "field",
         "change",
+        "save",
         "save-check",
         "save-warning"
     ],

@@ -27,7 +27,8 @@
         $('#example-2-form').areYouSure();
 
         var defaultPickup15min = new Date((new Date()).getTime() + 15 * 60000);
-        $('#pickup').val(defaultPickup15min.getHours() + ':' + defaultPickup15min.getMinutes());
+        $('#pickup').val(defaultPickup15min.getHours() 
+                          + ':' + defaultPickup15min.getMinutes());
 
 
         // Example 3 - custom message and hooking the dirty change events
@@ -56,7 +57,8 @@
           function(data) {
             var temp = data.main.temp;
             if (temp > 5) {
-              $('#example-4-special').append('<p>It\'s currently ' + temp + 'C in Melbourne. Ice it up!</p>'); 
+              $('#example-4-special').append('<p>It\'s currently ' 
+                  + temp + 'C in Melbourne. Ice it up!</p>'); 
               $('#example-4-special').append('<input type="checkbox" name="make-it-iced" value="true" />' 
                   + ' Make it an iced coffee<br />');
 
@@ -75,7 +77,7 @@
          *    to more easily demonstrate when the form is dirty
          */
         $('#example-5-extra-shots').click(function() {
-          // we trigger a change event on the fields so that the areYouSure event handler is called
+          // we trigger a change event on the fields so that the AreYouSure event handler is called
           $('#example-5-form input[name=shots]').removeAttr('disabled').change();
           $('#example-5-extra-shots').hide();
           $('#example-5-shots-options').show();
@@ -276,9 +278,9 @@
     <h2>Example 3: Lets be intelligent!</h2>
     <p>
       This is a more advanced example.  The <code>dirty</code> and <code>clean</code> change events are 
-      intercepted so the save button is only enabled if the form is dirty.  It also demonstrates how to 
-      customize the warning message and change the style of a dirty form (CSS styling using the 
-      <code>.dirty</code> class).
+      intercepted so the save button is only enabled if the form is dirty (i.e. something to save). 
+      It also demonstrates how to customize the warning message and change the style of a dirty 
+      form (CSS styling using the <code>.dirty</code> class).
     </p>
     <form id="example-3-form" name="coffeeOrder3" method="post">
       <h2>Update My Standard Order</h2>
@@ -317,8 +319,8 @@
 
     <h2>Example 4: Lets be dynamic!</h2>
     <p>
-      In this example we'll dymaically add a field and fire off the <code>rescan</code> event. Any
-      changes to the new field(s) from then on will cause the form to mark as dirty.
+      In this example we'll dymaically add a field and fire off the <code>rescan</code> event. After
+      the rescan, Are-You-Sure will start looking for changes on the new fields as well.
     </p>
     <form id="example-4-form" name="coffeeOrder4" method="post">
       <h2>Order Coffee For Pickup Now</h2>
