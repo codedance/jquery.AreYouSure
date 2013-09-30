@@ -108,6 +108,12 @@
       }
     });
 
+    $(document).on('pjax:beforeSend', function() {
+      if ($dirtyForms.length) {
+        return confirm(settings.message);
+      }
+    });
+
     return this.each(function(elem) {
       if (!$(this).is('form')) {
         return;
