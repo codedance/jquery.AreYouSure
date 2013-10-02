@@ -8,7 +8,7 @@
  *
  * Author:   chris.dance@papercut.com
  * Version:  1.4.0
- * Date:     30th Oct 2013
+ * Date:     2nd Oct 2013
  */
 (function($) {
   $.fn.areYouSure = function(options) {
@@ -17,7 +17,7 @@
             'message' : 'You have unsaved changes!',
             'dirtyClass' : 'dirty',
             'change' : null,
-            'disableMessage' : false,
+            'silent' : false,
             'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden']"
           }, options);
 
@@ -99,9 +99,9 @@
       if (changed) {
         if (settings.change) settings.change.call($form, $form);
 
-        if (isDirty)  $form.trigger('dirty.ays', [$form]);
-        if (!isDirty) $form.trigger('clean.ays', [$form]);
-        $form.trigger('change.ays', [$form]);
+        if (isDirty)  $form.trigger('dirty.areYouSure', [$form]);
+        if (!isDirty) $form.trigger('clean.areYouSure', [$form]);
+        $form.trigger('change.areYouSure', [$form]);
       }
     };
 
@@ -112,7 +112,7 @@
       $(newFields).bind('change keyup', checkForm);
     };
 
-    if (!settings.disableMessage) {
+    if (!settings.silent) {
       $(window).bind('beforeunload', function() {
         $dirtyForms = $("form").filter('.' + settings.dirtyClass);
         if ($dirtyForms.length > 0) {
@@ -133,7 +133,7 @@
       });
       $form.bind('reset', function() { markDirty($form, false); });
       // Add a custom event to support dynamic addition of new fields
-      $form.bind('rescan.ays', rescan); 
+      $form.bind('rescan.areYouSure', rescan); 
 
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(storeOrigValue);

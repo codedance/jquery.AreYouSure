@@ -38,10 +38,10 @@
           }
         );
         // Enable save button only if the form is dirty - using events.
-        $('#example-3-form').bind('dirty.ays', function() {
+        $('#example-3-form').bind('dirty.areYouSure', function() {
           $(this).find('input[type="submit"]').removeAttr('disabled');
         });
-        $('#example-3-form').bind('clean.ays', function() {
+        $('#example-3-form').bind('clean.areYouSure', function() {
           $(this).find('input[type="submit"]').attr('disabled', 'disabled');
         });
 
@@ -63,7 +63,7 @@
                   + ' Make it an iced coffee<br />');
 
               // Trigger rescan event on the form so we start tracking the new field.
-              $('#example-4-form').trigger('rescan.ays');
+              $('#example-4-form').trigger('rescan.areYouSure');
             }
           }
         );

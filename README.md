@@ -68,11 +68,12 @@ To ignore selected fields from the dirtyness check:
 $(function() {
 
     /*
-    *  Disable the Warning Message (tracking/monitoring only)
-    *  This option is useful when you wish to use the dirty/save events and/or
-    *  use the dirtyness tracking in your own beforeunload handler.
+    *  Make Are-You-Sure "silent" by disabling the warning message 
+    *  (tracking/monitoring only mode). This option is useful when you wish to 
+    *  use the dirty/save events and/or use the dirtyness tracking in your own 
+    *  beforeunload handler.
     */
-    $('form').areYouSure( {'disableMessage':true} );
+    $('form').areYouSure( {'silent':true} );
 
     /*
     *  Dirtyness Change Events
@@ -82,11 +83,11 @@ $(function() {
     *
     *  "this" refers to the form that fired the event.
     */
-    $('form').bind('dirty.ays', function() {
+    $('form').on('dirty.areYouSure', function() {
       // Enable save button only as the form is dirty.
       $(this).find('input[type="submit"]').removeAttr('disabled');
     });
-    $('form').bind('clean.ays', function() {
+    $('form').on('clean.areYouSure', function() {
       // For is clean so nothing to save - disable the save button.
       $(this).find('input[type="submit"]').attr('disabled', 'disabled');
     });
@@ -100,10 +101,10 @@ $(function() {
     }
 
     /*
-    *  If you're dynamically adding new fields, and would like to track 
-    *  their state, trigger Are-You-Sure to rescan the form like this.
+    *  If you're dynamically adding new fields/inputs, and would like to track 
+    *  their state, trigger Are-You-Sure to rescan the form like this:
     */
-    $('#my-form').trigger('rescan.ays');
+    $('#my-form').trigger('rescan.areYouSure');
     
     /*
     *  As an alternative to using events, you can pass in a custom change 
@@ -154,7 +155,7 @@ in the issues list.
 
 ###Release History
 
-**2013-09-30** 
+**2013-10-2** 
 * Added dirty and clean "events" 
 * Added an option to disable the message (dirty tracking only)
 * Added an option to rescan a form to look/detect any new fields
