@@ -21,6 +21,8 @@
             'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden']"
           }, options);
 
+    var submittingDirtyForm = null;
+
     var getValue = function($field) {
       if ($field.hasClass('ays-ignore')
           || $field.hasClass('aysIgnore')
@@ -117,6 +119,10 @@
         $dirtyForms = $("form").filter('.' + settings.dirtyClass);
         if ($dirtyForms.length > 0) {
           // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
+          // if during the submit of a dirty form then re-dirty the form
+          if (submittingDirtyForm != null) {
+            submittingDirtyForm.addClass(settings.dirtyClass);
+          }
           return settings.message;
         }
       });
@@ -129,6 +135,10 @@
       var $form = $(this);
 
       $form.submit(function() {
+        // submitting a dirty form? remember for later
+        if ($form.hasClass(settings.dirtyClass)) {
+          submittingDirtyForm = $form;
+        }
         $form.removeClass(settings.dirtyClass);
       });
       $form.bind('reset', function() { markDirty($form, false); });
