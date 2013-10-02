@@ -88,7 +88,7 @@ $(function() {
       $(this).find('input[type="submit"]').removeAttr('disabled');
     });
     $('form').on('clean.areYouSure', function() {
-      // For is clean so nothing to save - disable the save button.
+      // Form is clean so nothing to save - disable the save button.
       $(this).find('input[type="submit"]').attr('disabled', 'disabled');
     });
 
