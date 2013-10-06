@@ -136,6 +136,9 @@ to add an extra browser round trip. It's recommended that you consider
 concatenating it with other common JS lib files, and/or even cut-n-pasting 
 the code (and license header) into one of your existing JS files.
 
+If you're using, or like, *Are-you-sure* make sure you star/watch this project
+so you can stay up-to-date with updates.
+
 
 ###Demo
 This [demo page](http://www.papercut.com/products/free_software/are-you-sure/demo/are-you-sure-demo.html)
