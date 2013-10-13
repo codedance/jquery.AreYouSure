@@ -21,7 +21,7 @@
             'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden']"
           }, options);
 
-    var submittingDirtyForm = null;
+    var submittingForm = null;  // used to filter the form in submission from the dirty check
 
     var getValue = function($field) {
       if ($field.hasClass('ays-ignore')
@@ -116,13 +116,12 @@
 
     if (!settings.silent) {
       $(window).bind('beforeunload', function() {
-        $dirtyForms = $("form").filter('.' + settings.dirtyClass);
+        // Dirty forms that are not the submitting form
+        $dirtyForms = $("form").filter('.' + settings.dirtyClass).not(submittingForm);
+        // end of the line for this information, we either submit or end the process.
+        submittingForm = null;
         if ($dirtyForms.length > 0) {
           // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
-          // if during the submit of a dirty form then re-dirty the form
-          if (submittingDirtyForm != null) {
-            submittingDirtyForm.addClass(settings.dirtyClass);
-          }
           return settings.message;
         }
       });
@@ -135,11 +134,7 @@
       var $form = $(this);
 
       $form.submit(function() {
-        // submitting a dirty form? remember for later
-        if ($form.hasClass(settings.dirtyClass)) {
-          submittingDirtyForm = $form;
-        }
-        $form.removeClass(settings.dirtyClass);
+        submittingForm = $form;
       });
       $form.bind('reset', function() { markDirty($form, false); });
       // Add a custom event to support dynamic addition of new fields
