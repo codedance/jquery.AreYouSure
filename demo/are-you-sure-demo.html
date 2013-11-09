@@ -102,6 +102,20 @@
           }
         });
 
+        // Example 7 - ... in one line of code for the form and some more optional to toggle disabled state of the save button
+        $('#example-7-form').areYouSure();
+        $('#example-7-save-button').click(function () {
+            $('#example-7-form').trigger('updateOriginal.areYouSure');
+        });
+        // code below is optional to handle disabled state of the save button
+        $('#example-7-form').bind('dirty.areYouSure', function () {
+            // Enable save button only as the form is dirty.
+            $('#example-7-save-button').attr({ 'disabled': false });
+        });
+        $('#example-7-form').bind('clean.areYouSure', function () {
+            // Form is clean so nothing to save - disable the save button.
+            $('#example-7-save-button').attr({ 'disabled': true });
+        });
       });
 
     </script>
@@ -391,6 +405,34 @@
       <div>
         <p>... or visit <a href="http://www.google.com/">Google</a> or close the window without saving!</p>
       </div>
+    </form>
+
+    <h2>Example 7: Mark current state as not dirty!</h2>
+    <p>
+        This example shows how you can mark the current state as not dirty.
+    </p>
+
+    <form id="example-7-form" name="coffeeOrder7" method="post">
+        <h2>Mark your default kind of coffee</h2>
+        <div>
+            <label for="example-7-coffee">Default coffee</label>
+            <select name="coffee" id="example-7-coffee">
+                <option value="espresso">Espresso</option>
+                <option value="dbl-espresso">Caffe Doppio</option>
+                <option value="latte">Caffe Latte</option>
+                <option value="macciato">Machhiato</option>
+                <option value="cappuccino">Cappuccino</option>
+            </select>
+        </div>
+        <div>
+            <button id="example-7-save-button" disabled="disabled">Save without submit</button>
+        </div>
+        <div class="buttons">
+            <input type="submit" value="Submit">
+        </div>
+        <div>
+            <p>... or visit <a href="http://www.google.com/">Google</a> or close the window without saving!</p>
+        </div>
     </form>
 
     <p>
