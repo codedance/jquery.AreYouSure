@@ -122,6 +122,14 @@
       });
     }
 
+    var updateOriginal = function () {
+        var $form = $(this);
+        var allFields = $form.find(settings.fieldSelector);
+        $(allFields).each(storeOrigValue);
+
+        markDirty($form, false);
+    };
+
     return this.each(function(elem) {
       if (!$(this).is('form')) {
         return;
@@ -133,7 +141,8 @@
       });
       $form.bind('reset', function() { markDirty($form, false); });
       // Add a custom event to support dynamic addition of new fields
-      $form.bind('rescan.areYouSure', rescan); 
+      $form.bind('rescan.areYouSure', rescan);
+      $form.bind('updateOriginal.areYouSure', updateOriginal);
 
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(storeOrigValue);
