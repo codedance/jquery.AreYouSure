@@ -102,6 +102,9 @@
           }
         });
 
+        // Example 6 - HTML5 input types
+        $('#example-6-form').areYouSure();
+
       });
 
     </script>
@@ -140,9 +143,22 @@
         padding: 8px;
         font-size: 12px;
       }
-      form > div  input[type="text"],
-      form > div  textarea,
-      form > div  select,
+      form > div input[type="text"],
+      form > div input[type="color"],
+      form > div input[type="date"],
+      form > div input[type="datetime"],
+      form > div input[type="datetime-local"],
+      form > div input[type="email"],
+      form > div input[type="month"],
+      form > div input[type="number"],
+      form > div input[type="range"],
+      form > div input[type="search"],
+      form > div input[type="tel"],
+      form > div input[type="time"],
+      form > div input[type="url"],
+      form > div input[type="week"],
+      form > div textarea,
+      form > div select,
       form > div button {
         float: right;
         width: 200px;
@@ -393,6 +409,73 @@
       </div>
     </form>
 
+    <h2>Example 6: HTML5 inputs!</h2>
+    <p>
+      This example shows support for HTML5 input types
+    </p>
+
+    <form id="example-6-form" name="coffeeOrder6" method="post">
+      <h2>Specify all the things you didn't knew was needed to get a cup of coffee.</h2>
+      <div>          
+          <label for="example-6-color">color</label>
+          <input type="color" name="example-6-color" />
+      </div>
+      <div>          
+          <label for="example-6-date">date</label>
+          <input type="date" name="example-6-date" />
+      </div>
+      <div>          
+          <label for="example-6-datetime">datetime</label>
+          <input type="datetime" name="example-6-datetime" />
+      </div>
+      <div>          
+          <label for="example-6-datetime-local">datetime-local</label>
+          <input type="datetime-local" name="example-6-datetime-local" />
+      </div>
+      <div>          
+          <label for="example-6-email">email</label>
+          <input type="email" name="example-6-email" />
+      </div>
+      <div>          
+          <label for="example-6-month">month</label>
+          <input type="month" name="example-6-month" />
+      </div>
+      <div>          
+          <label for="example-6-number">number</label>
+          <input type="number" name="example-6-number" />
+      </div>
+      <div>          
+          <label for="example-6-range">range</label>
+          <input type="range" name="example-6-range" />
+      </div>
+      <div>          
+          <label for="example-6-search">search</label>
+          <input type="search" name="example-6-search" />
+      </div>
+      <div>          
+          <label for="example-6-tel">tel</label>
+          <input type="tel" name="example-6-tel" />
+      </div>
+      <div>          
+          <label for="example-6-time">time</label>
+          <input type="time" name="example-6-time" />
+      </div>
+      <div>          
+          <label for="example-6-url">url</label>
+          <input type="url" name="example-6-url" />
+      </div>
+      <div>          
+          <label for="example-6-week">week</label>
+          <input type="week" name="example-6-week" />
+      </div>
+      <div class="buttons">
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+      </div>
+      <div>
+        <p>... or visit <a href="http://www.google.com/">Google</a> or close the window without saving!</p>
+      </div>
+    </form>
     <p>
       This jQuery plugin is developed by <a href="https://github.com/codedance">Chris Dance</a> 
       at <a href="http://www.papercut.com/">PaperCut Software</a>.
