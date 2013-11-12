@@ -1,5 +1,7 @@
-Are You Sure?  - A light "dirty forms" JQuery Plugin!
+Are You Sure?  - A "dirty forms" JQuery Plugin!
 ======
+**Version:** 1.5
+
 
 *Are-you-sure* (```jquery.are-you-sure.js```) is simple light-weight "dirty 
 form" JQuery Plugin for modern browsers.  It helps prevent users from losing 
@@ -105,6 +107,14 @@ $(function() {
     *  their state, trigger Are-You-Sure to rescan the form like this:
     */
     $('#my-form').trigger('rescan.areYouSure');
+
+    /*
+    *  If you'd like to reset/reinitialize the form's state as clean and 
+    *  start tracking again from this new point onwards, trigger the
+    *  reinitalize as follows. This is handy if say you've managing your
+    *  own form save/submit via asyc AJAX.
+    */
+    $('#my-form').trigger('reinitialize.areYouSure');
     
     /*
     *  As an alternative to using events, you can pass in a custom change 
@@ -158,7 +168,11 @@ in the issues list.
 
 ###Release History
 
-**2013-10-2** 
+**2013-11-13** (1.5)
+* Added support for HTML5 input field types. (contrib *albinsunnanbo*)
+* New option to reinitialize/reset the dirty state.  This is handy if you're managing your own a asyc submit/save using AJAX. (contrib *albinsunnanbo*)
+
+**2013-10-2** (1.4)
 * Added dirty and clean "events" 
 * Added an option to disable the message (dirty tracking only)
 * Added an option to rescan a form to look/detect any new fields

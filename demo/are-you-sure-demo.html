@@ -105,6 +105,20 @@
         // Example 6 - HTML5 input types
         $('#example-6-form').areYouSure();
 
+        // Example 7 - ... in one line of code for the form and some more optional to toggle disabled state of the save button
+        $('#example-7-form').areYouSure();
+        $('#example-7-save-button').click(function () {
+            $('#example-7-form').trigger('reinitialize.areYouSure');
+        });
+        // code below is optional to handle disabled state of the save button
+        $('#example-7-form').bind('dirty.areYouSure', function () {
+            // Enable save button only as the form is dirty.
+            $('#example-7-save-button').attr({ 'disabled': false });
+        });
+        $('#example-7-form').bind('clean.areYouSure', function () {
+            // Form is clean so nothing to save - disable the save button.
+            $('#example-7-save-button').attr({ 'disabled': true });
+        });
       });
 
     </script>
@@ -411,11 +425,12 @@
 
     <h2>Example 6: HTML5 inputs!</h2>
     <p>
-      This example shows support for HTML5 input types
+      This example shows support for HTML5 input types. It's not a coffee order form,
+      but you need coffee if you're working with HTML5 :-)
     </p>
 
     <form id="example-6-form" name="coffeeOrder6" method="post">
-      <h2>Specify all the things you didn't knew was needed to get a cup of coffee.</h2>
+      <h2>Doing HTML5? You'll need coffee!</h2>
       <div>          
           <label for="example-6-color">color</label>
           <input type="color" name="example-6-color" />
@@ -476,6 +491,35 @@
         <p>... or visit <a href="http://www.google.com/">Google</a> or close the window without saving!</p>
       </div>
     </form>
+    <h2>Example 7: Mark current state as not dirty!</h2>
+    <p>
+        This example shows how you can mark the current state as not dirty. Handy for AJAX forms 
+        we're you're managing your own submits.
+    </p>
+
+    <form id="example-7-form" name="coffeeOrder7" method="post">
+        <h2>Tell us your default coffee</h2>
+        <div>
+            <label for="example-7-coffee">Default coffee</label>
+            <select name="coffee" id="example-7-coffee">
+                <option value="espresso">Espresso</option>
+                <option value="dbl-espresso">Caffe Doppio</option>
+                <option value="latte">Caffe Latte</option>
+                <option value="macciato">Machhiato</option>
+                <option value="cappuccino">Cappuccino</option>
+            </select>
+        </div>
+        <div>
+            <button id="example-7-save-button" disabled="disabled">Save without submit</button>
+        </div>
+        <div class="buttons">
+            <input type="submit" value="Submit">
+        </div>
+        <div>
+            <p>... or visit <a href="http://www.google.com/">Google</a> or close the window without saving!</p>
+        </div>
+    </form>
+
     <p>
       This jQuery plugin is developed by <a href="https://github.com/codedance">Chris Dance</a> 
       at <a href="http://www.papercut.com/">PaperCut Software</a>.

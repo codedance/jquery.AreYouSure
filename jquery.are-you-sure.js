@@ -7,8 +7,8 @@
  * http://jquery.org/license
  *
  * Author:   chris.dance@papercut.com
- * Version:  1.4.0
- * Date:     2nd Oct 2013
+ * Version:  1.5.0
+ * Date:     13th Nov 2013
  */
 (function($) {
   $.fn.areYouSure = function(options) {
@@ -112,6 +112,14 @@
       $(newFields).bind('change keyup', checkForm);
     };
 
+    var reinitialize = function () {
+        var $form = $(this);
+        var allFields = $form.find(settings.fieldSelector);
+        $(allFields).each(storeOrigValue);
+
+        markDirty($form, false);
+    };
+
     if (!settings.silent) {
       $(window).bind('beforeunload', function() {
         $dirtyForms = $("form").filter('.' + settings.dirtyClass);
@@ -132,8 +140,9 @@
         $form.removeClass(settings.dirtyClass);
       });
       $form.bind('reset', function() { markDirty($form, false); });
-      // Add a custom event to support dynamic addition of new fields
-      $form.bind('rescan.areYouSure', rescan); 
+      // Add a custom events
+      $form.bind('rescan.areYouSure', rescan);
+      $form.bind('reinitialize.areYouSure', reinitialize);
 
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(storeOrigValue);
