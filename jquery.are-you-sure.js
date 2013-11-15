@@ -8,7 +8,7 @@
  *
  * Author:   chris.dance@papercut.com
  * Version:  1.5.0
- * Date:     13th Nov 2013
+ * Date:     15th Nov 2013
  */
 (function($) {
   $.fn.areYouSure = function(options) {

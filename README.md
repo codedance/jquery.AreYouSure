@@ -1,4 +1,4 @@
-Are You Sure?  - A "dirty forms" JQuery Plugin!
+Are You Sure?  - A light "dirty forms" JQuery Plugin!
 ======
 **Version:** 1.5
 
@@ -168,9 +168,10 @@ in the issues list.
 
 ###Release History
 
-**2013-11-13** (1.5)
+**2013-11-15** (1.5)
 * Added support for HTML5 input field types. (contrib *albinsunnanbo*)
 * New option to reinitialize/reset the dirty state.  This is handy if you're managing your own a asyc submit/save using AJAX. (contrib *albinsunnanbo*)
+* Thanks to [albinsunnanbo](https://github.com/albinsunnanbo) for the contribution!
 
 **2013-10-2** (1.4)
 * Added dirty and clean "events" 
