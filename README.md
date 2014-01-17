@@ -76,6 +76,15 @@ $(function() {
     *  beforeunload handler.
     */
     $('form').areYouSure( {'silent':true} );
+	
+    /*
+    *  Are-You-Sure is able to track the number of fields in the form as well
+	*  as their content. This is useful for forms that can change their field
+	*  count, such as address/phone contact forms
+	*  (e.g. You might remove a phone number from a contact form but update
+	*  nothing else.
+    */
+    $('form').areYouSure( {'trackCount':true} );	
 
     /*
     *  Dirtyness Change Events
@@ -116,6 +125,12 @@ $(function() {
     */
     $('#my-form').trigger('reinitialize.areYouSure');
     
+	/*
+    *  If you need to force a re-check due to some change that isn't tracked automatically
+    *  then you can trigger a form check as follows:
+    */
+    $('#my-form').trigger('checkForm.areYouSure');
+	
     /*
     *  As an alternative to using events, you can pass in a custom change 
     *  function.

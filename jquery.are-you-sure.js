@@ -1,24 +1,27 @@
 /*!
- * jQuery Plugin: Are-You-Sure (Dirty Form Detection)
- * https://github.com/codedance/jquery.AreYouSure/
- *
- * Copyright (c) 2012-2013, Chris Dance and PaperCut Software http://www.papercut.com/
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * Author:   chris.dance@papercut.com
- * Version:  1.5.0
- * Date:     15th Nov 2013
- */
-(function($) {
-  $.fn.areYouSure = function(options) {
+* jQuery Plugin: Are-You-Sure (Dirty Form Detection)
+* https://github.com/codedance/jquery.AreYouSure/
+*
+* Copyright (c) 2012-2013, Chris Dance and PaperCut Software http://www.papercut.com/
+* Dual licensed under the MIT or GPL Version 2 licenses.
+* http://jquery.org/license
+*
+* Author: chris.dance@papercut.com
+* Version: 1.5.0
+* Date: 15th Nov 2013
+*/
+(function ($) {
+  
+  $.fn.areYouSure = function (options) {
+      
     var settings = $.extend(
           {
             'message' : 'You have unsaved changes!',
             'dirtyClass' : 'dirty',
             'change' : null,
             'silent' : false,
-            'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden'],input[type='color'],input[type='date'],input[type='datetime'],input[type='datetime-local'],input[type='email'],input[type='month'],input[type='number'],input[type='range'],input[type='search'],input[type='tel'],input[type='time'],input[type='url'],input[type='week']"
+            'fieldSelector': "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden'],input[type='color'],input[type='date'],input[type='datetime'],input[type='datetime-local'],input[type='email'],input[type='month'],input[type='number'],input[type='range'],input[type='search'],input[type='tel'],input[type='time'],input[type='url'],input[type='week']",
+            'trackCount' : false
           }, options);
 
     var getValue = function($field) {
@@ -71,41 +74,54 @@
       };
 
       var isDirty = false;
-      var $form = $(this).parents('form');
+
+      var $form = ($(this).is('form')) 
+                    ? $(this)
+                    : $(this).parents('form')
 
       // Test on the target first as it's the most likely to be dirty.
       if (isFieldDirty($(evt.target))) {
         isDirty = true;
-      }
+      } else {
 
-      if (!isDirty) {
-        $form.find(settings.fieldSelector).each(function() {
-          $field = $(this);
-          if (isFieldDirty($field)) {
-            isDirty = true;
-            return false; // break
+          $fields = $form.find(settings.fieldSelector);
+
+          if (settings.trackCount) {              
+              //Check if the overall checked field count has changed
+              isDirty = ($form.data("ays-origcount") != $fields.length);
+          };
+
+          if (!isDirty) {
+
+              //Check for changes in each field
+              $fields.each(function () {
+                  $field = $(this);
+                  if (isFieldDirty($field)) {
+                      isDirty = true;
+                      return false; // break
+                  }
+              });
           }
-        });
       }
-
+      
       markDirty($form, isDirty);
     };
     
     var markDirty = function($form, isDirty) {
       var changed = isDirty != $form.hasClass(settings.dirtyClass);
       $form.toggleClass(settings.dirtyClass, isDirty);
-
+        
       // Fire change event if required
       if (changed) {
         if (settings.change) settings.change.call($form, $form);
 
-        if (isDirty)  $form.trigger('dirty.areYouSure', [$form]);
+        if (isDirty) $form.trigger('dirty.areYouSure', [$form]);
         if (!isDirty) $form.trigger('clean.areYouSure', [$form]);
         $form.trigger('change.areYouSure', [$form]);
       }
     };
 
-    var rescan = function() {
+    var rescan = function () {
       var $form = $(this);
       var newFields = $form.find(settings.fieldSelector).not("[ays-orig]");
       $(newFields).each(storeOrigValue);
@@ -119,6 +135,12 @@
 
         markDirty($form, false);
     };
+
+    var set = function (isDirty) {
+        if (isDirty == null) isDirty = true;
+        var $form = $(this);
+        markDirty($form, isDirty)
+    }
 
     if (!settings.silent) {
       $(window).bind('beforeunload', function() {
@@ -135,7 +157,7 @@
         return;
       }
       var $form = $(this);
-
+        
       $form.submit(function() {
         $form.removeClass(settings.dirtyClass);
       });
@@ -143,11 +165,17 @@
       // Add a custom events
       $form.bind('rescan.areYouSure', rescan);
       $form.bind('reinitialize.areYouSure', reinitialize);
+      $form.bind('checkform.areYouSure', checkForm);
 
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(storeOrigValue);
       $(fields).bind('change keyup', checkForm);
 
+      if (settings.trackCount) {
+          //Record the overall count of tracked fields
+          $form.data("ays-origcount", $(fields).length);
+      }
+                    
     });
   };
 })(jQuery);
