@@ -182,7 +182,7 @@ in the issues list.
 
 **2013-11-15** (1.5)
 * Added support for HTML5 input field types. (contrib *albinsunnanbo*)
-* New option to reinitialize/reset the dirty state.  This is handy if you're managing your own a asyc submit/save using AJAX. (contrib *albinsunnanbo*)
+* New option to reinitialize/reset the dirty state.  This is handy if you're managing your own async submit/save using AJAX. (contrib *albinsunnanbo*)
 * Thanks to [albinsunnanbo](https://github.com/albinsunnanbo) for the contribution!
 
 **2013-10-2** (1.4)
