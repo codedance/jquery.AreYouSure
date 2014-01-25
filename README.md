@@ -130,6 +130,18 @@ $(function() {
                   }
                 }
     });
+	/*
+    *  You can add callback to be run before the unload call and determine if the unlooad call will be execute. 
+	*  It is very useful for creating themed modals for unload event that fiured because of clicking on links.
+    */
+	$('#my-adv-form').areYouSure({before_unload_callback: function() {
+			if(window.unload_source != 'anchor') {
+				return true; //not link unload event - show the regular alert
+			} else {
+				// do somethings else - i.e open themed modal.
+			}
+		}
+	});
     
 }
 ```
@@ -198,7 +210,7 @@ jQuery version 1.4.2 or higher. 1.10+ recommended.
 
 
 ###License
-The same as JQuery...
+The same as jQuery...
 
     jQuery Plugin: Are-You-Sure (Dirty Form Detection)
     https://github.com/codedance/jquery.AreYouSure/
