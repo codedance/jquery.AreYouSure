@@ -18,7 +18,8 @@
             'dirtyClass' : 'dirty',
             'change' : null,
             'silent' : false,
-            'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden'],input[type='color'],input[type='date'],input[type='datetime'],input[type='datetime-local'],input[type='email'],input[type='month'],input[type='number'],input[type='range'],input[type='search'],input[type='tel'],input[type='time'],input[type='url'],input[type='week']"
+            'fieldSelector' : "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden'],input[type='color'],input[type='date'],input[type='datetime'],input[type='datetime-local'],input[type='email'],input[type='month'],input[type='number'],input[type='range'],input[type='search'],input[type='tel'],input[type='time'],input[type='url'],input[type='week']",
+			before_unload_callback : function() {return true;}
           }, options);
 
     var getValue = function($field) {
@@ -120,15 +121,18 @@
         markDirty($form, false);
     };
 
-    if (!settings.silent) {
-      $(window).bind('beforeunload', function() {
-        $dirtyForms = $("form").filter('.' + settings.dirtyClass);
-        if ($dirtyForms.length > 0) {
-          // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
-          return settings.message;
-        }
-      });
-    }
+	if (!settings.silent) {
+		$(window).bind('beforeunload', function() {
+			$dirtyForms = $("form").filter('.' + settings.dirtyClass);
+			if ($dirtyForms.length > 0) {
+				var result = settings.before_unload_callback.call(this);
+				if(result) {
+					// $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
+					return settings.message;
+				}
+			}
+		});
+	}
 
     return this.each(function(elem) {
       if (!$(this).is('form')) {
