@@ -77,14 +77,6 @@ $(function() {
     */
     $('form').areYouSure( {'silent':true} );
 	
-    /*
-    *  Are-You-Sure is able to track the number of fields in the form as well
-    *  as their content. This is useful for forms that can change their field
-    *  count, such as address/phone contact forms
-    *  (e.g. You might remove a phone number from a contact form but update
-    *  nothing else.
-    */
-    $('form').areYouSure( {'trackCount':true} );	
 
     /*
     *  Dirtyness Change Events
@@ -124,10 +116,19 @@ $(function() {
     *  own form save/submit via asyc AJAX.
     */
     $('#my-form').trigger('reinitialize.areYouSure');
+
+    /*
+    *  In some situations it may be desirable to look for other form
+    *  changes such as adding/removing fields. This is useful for forms that
+    *  can change their field count, such as address/phone contact forms.
+    *  Form example, you might remove a phone number from a contact form
+    *  but update nothing else. This should mark the form as dirty.
+    */
+    $('form').areYouSure( {'addRemoveFieldsMarksDirty':true} );
     
     /*
-    *  If you need to force a re-check due to some change that isn't tracked automatically
-    *  then you can trigger a form check as follows:
+    *  If you need to force a re-check due to some change that isn't tracked 
+    * automatically then you can trigger a form check as follows:
     */
     $('#my-form').trigger('checkForm.areYouSure');
 	
@@ -182,6 +183,11 @@ in the issues list.
 
 
 ###Release History
+
+**2014-02-04** (1.6)
+* Add field count tracking (```addRemoveFieldsMarksDirty```) (contrib *jonegerton*)
+* Added event to manually trigger a form check/recheck  (contrib *jonegerton*)
+* Thanks to [jonegerton](https://github.com/jonegerton) for the contribution!
 
 **2013-11-15** (1.5)
 * Added support for HTML5 input field types. (contrib *albinsunnanbo*)
