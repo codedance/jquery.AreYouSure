@@ -49,7 +49,7 @@
           break;
         case 'select':
           val = '';
-          $field.children('option').each(function(o) {
+          $field.find('option').each(function(o) {
             var $option = $(this);
             if ($option.is(':selected')) {
               val += $option.val();
@@ -71,10 +71,10 @@
 
       var isFieldDirty = function($field) {
         var origValue = $field.data('ays-orig');
-        if (undefined != origValue) {
-          return (getValue($field) != origValue);
+        if (undefined === origValue) {
+          return false;
         }
-        return false;
+        return (getValue($field) != origValue);
       };
 
       var $form = ($(this).is('form')) 
