@@ -6,9 +6,9 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
- * Author: chris.dance@papercut.com
+ * Author:  chris.dance@papercut.com
  * Version: 1.6.0
- * Date: 4th Feb 2014
+ * Date:    4th Feb 2014
  */
 (function($) {
   
