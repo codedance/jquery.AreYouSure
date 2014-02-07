@@ -2,13 +2,13 @@
  * jQuery Plugin: Are-You-Sure (Dirty Form Detection)
  * https://github.com/codedance/jquery.AreYouSure/
  *
- * Copyright (c) 2012-2013, Chris Dance and PaperCut Software http://www.papercut.com/
+ * Copyright (c) 2012-2014, Chris Dance and PaperCut Software http://www.papercut.com/
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
  * Author: chris.dance@papercut.com
  * Version: 1.6.0
- * Date: 4th Feb 2014
+ * Date: 7th Feb 2014
  */
 (function($) {
   

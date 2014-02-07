@@ -1,6 +1,6 @@
 Are You Sure?  - A light "dirty forms" JQuery Plugin!
 ======
-**Version:** 1.5
+**Version:** 1.6
 
 
 *Are-you-sure* (```jquery.are-you-sure.js```) is simple light-weight "dirty 
@@ -184,7 +184,7 @@ in the issues list.
 
 ###Release History
 
-**2014-02-04** (1.6)
+**2014-02-07** (1.6)
 * Add field count tracking (```addRemoveFieldsMarksDirty```) (contrib *jonegerton*)
 * Added event to manually trigger a form check/recheck  (contrib *jonegerton*)
 * Thanks to [jonegerton](https://github.com/jonegerton) for the contribution!
@@ -224,7 +224,7 @@ The same as JQuery...
     jQuery Plugin: Are-You-Sure (Dirty Form Detection)
     https://github.com/codedance/jquery.AreYouSure/
  
-    Copyright (c) 2012-2013, Chris Dance - PaperCut Software http://www.papercut.com/
+    Copyright (c) 2012-2014, Chris Dance - PaperCut Software http://www.papercut.com/
     Dual licensed under the MIT or GPL Version 2 licenses.
     http://jquery.org/license
 
