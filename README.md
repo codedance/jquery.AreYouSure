@@ -162,9 +162,14 @@ to add an extra browser round trip. It's recommended that you consider
 concatenating it with other common JS lib files, and/or even cut-n-pasting 
 the code (and license header) into one of your existing JS files.
 
+*Are-you-sure* may also be installed with [Bower](http://twitter.github.com/bower/):
+
+``` bash
+$ bower install jquery.are-you-sure
+```
+
 If you're using, or like, *Are-you-sure* make sure you star/watch this project
 so you can stay up-to-date with updates.
-
 
 ###Demo
 This [demo page](http://www.papercut.com/products/free_software/are-you-sure/demo/are-you-sure-demo.html)
@@ -180,13 +185,6 @@ hosts a number of example forms.
 The aim is to keep *Are-you-sure* simple and light. If you think you have 
 a good idea which is aligned with this objective, please voice your thoughts 
 in the issues list.
-
-### Package Managers
-*Are-you-sure* can be installed with [Bower](http://twitter.github.com/bower/):
-
-``` bash
-$ bower install jquery.are-you-sure
-```
 
 ###Release History
 
