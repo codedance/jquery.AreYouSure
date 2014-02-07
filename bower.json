@@ -9,10 +9,11 @@
   "main": "jquery.are-you-sure.js",
   "keywords": [
     "form",
-    "dirt",
+    "dirty",
     "field",
     "change",
     "save-check",
+    "are-you-sure",
     "save-warning"
   ],
   "license": "MIT",
