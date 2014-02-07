@@ -181,6 +181,12 @@ The aim is to keep *Are-you-sure* simple and light. If you think you have
 a good idea which is aligned with this objective, please voice your thoughts 
 in the issues list.
 
+### Package Managers
+*Are-you-sure* can be installed with [Bower](http://twitter.github.com/bower/):
+
+``` bash
+$ bower install jquery.are-you-sure
+```
 
 ###Release History
 
