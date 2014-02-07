@@ -19,5 +19,8 @@
   "ignore": [
     "**/.*",
     "demo",
-  ]
+  ],
+  "dependencies": {
+    "jquery": ">=1.4"
+  }
 }
