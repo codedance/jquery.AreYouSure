@@ -7,8 +7,8 @@
  * http://jquery.org/license
  *
  * Author:  chris.dance@papercut.com
- * Version: 1.6.0
- * Date:    7th Feb 2014
+ * Version: 1.7.0
+ * Date:    24th Feb 2014
  */
 (function($) {
   
@@ -21,6 +21,7 @@
         'change' : null,
         'silent' : false,
         'addRemoveFieldsMarksDirty' : false,
+        'fieldEvents' : 'change keyup propertychange input',
         'fieldSelector': "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden'],input[type='color'],input[type='date'],input[type='datetime'],input[type='datetime-local'],input[type='email'],input[type='month'],input[type='number'],input[type='range'],input[type='search'],input[type='tel'],input[type='time'],input[type='url'],input[type='week']"
       }, options);
 
@@ -114,8 +115,8 @@
     var initForm = function($form) {
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(function() { storeOrigValue($(this)); });
-      $(fields).unbind('change keyup', checkForm);
-      $(fields).bind('change keyup', checkForm);
+      $(fields).unbind(settings.fieldEvents, checkForm);
+      $(fields).bind(settings.fieldEvents, checkForm);
       $form.data("ays-orig-field-count", $(fields).length);
       setDirtyStatus($form, false);
     };
@@ -141,7 +142,7 @@
         var $field = $(this);
         if (!$field.data('ays-orig')) {
           storeOrigValue($field);
-          $field.bind('change keyup', checkForm);
+          $field.bind(settings.fieldEvents, checkForm);
         }
       });
       // Check for changes while we're here

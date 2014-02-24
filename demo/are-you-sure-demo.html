@@ -46,12 +46,21 @@
         });
 
 
-        // Example 4 - dynamicallly add form fields and track them.
+        // Example 4 - dynamically change and add form fields.
         $('#example-4-form').areYouSure(
           {
             message: "Did you forget to submit your coffee order?"
           }
         );
+
+        $('#example-4-lastorder').click(function() {
+          // ... set our saved coffee type.
+          $('#example-4-coffee').val('espresso');
+          // Because we've made a change from our own JavaScript, we need to fire
+          // off manual 'form check'.
+          $('#example-4-form').trigger('checkform.areYouSure');
+        });
+
         // If it's warm enough, offer an iced coffee special.
         $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=Melbourne,AU&mode=json&units=metric&callback=?", 
           function(data) {
@@ -355,8 +364,11 @@
     <form id="example-4-form" name="coffeeOrder4" method="post">
       <h2>Order Coffee For Pickup Now</h2>
       <div>
-        <label for="example-3-coffee">Coffee</label>
-        <select name="coffee" id="example-3-coffee">
+        <a id="example-4-lastorder" href="javascript:void(0);">Set my preferences from my last order</a><br />
+      </div>
+      <div>
+        <label for="example-4-coffee">Coffee</label>
+        <select name="coffee" id="example-4-coffee">
           <option value="cappuccino">Cappuccino</option>
           <option value="espresso">Espresso</option>
           <option value="dbl-espresso">Caffe Doppio</option>
