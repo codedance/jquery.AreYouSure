@@ -130,7 +130,7 @@ $(function() {
     *  If you need to force a re-check due to some change that isn't tracked 
     * automatically then you can trigger a form check as follows:
     */
-    $('#my-form').trigger('checkForm.areYouSure');
+    $('#my-form').trigger('checkform.areYouSure');
 	
     /*
     *  As an alternative to using events, you can pass in a custom change 
