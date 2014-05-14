@@ -17,9 +17,12 @@
     var settings = $.extend(
       {
         'message' : 'You have unsaved changes!',
+        'doubleConfirm': true,  // show message2 for mobile only
+        'message2' : 'Are you sure you want to leave? Any changes you have made will NOT be saved.  Click "Cancel" to stay or "OK" to leave.',
         'dirtyClass' : 'dirty',
         'change' : null,
         'silent' : false,
+        'submitFocus' : false,  // if staying on page, focus on submit button
         'addRemoveFieldsMarksDirty' : false,
         'fieldSelector': "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden'],input[type='color'],input[type='date'],input[type='datetime'],input[type='datetime-local'],input[type='email'],input[type='month'],input[type='number'],input[type='range'],input[type='search'],input[type='tel'],input[type='time'],input[type='url'],input[type='week']"
       }, options);
@@ -152,14 +155,62 @@
       initForm($(this));
     }
 
-    if (!settings.silent) {
-      $(window).bind('beforeunload', function() {
-        $dirtyForms = $("form").filter('.' + settings.dirtyClass);
-        if ($dirtyForms.length > 0) {
-          // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
-          return settings.message;
+    var hasBroken_beforeunload = function() {
+        return navigator.userAgent.toLowerCase().match(/iphone|ipod|ipad/);
+    }
+
+    var confirmExit = function() {
+      $dirtyForms = $("form").filter('.' + settings.dirtyClass);
+
+      if ($dirtyForms.length > 0) {
+        // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
+        if (settings.submitFocus) {
+          $('input[type="submit"]').focus();
         }
-      });
+
+        var isValid = true;
+        if ($.isFunction($("form").valid)) {
+          isValid = $("form").valid();    // hook for jquery.validate
+        }
+
+        if (hasBroken_beforeunload()) {
+          var leavePage = false;
+          if (confirm(settings.message)) {
+            // clicked "OK"
+            leavePage = isValid;
+          }
+
+          if (leavePage && settings.doubleConfirm) {
+            leavePage = confirm(settings.message2);
+          }
+
+          if (leavePage) {
+            return;
+          } else {
+            return false;   // stay on page
+          }
+        }
+        return settings.message;
+      }
+    }
+
+    if (!settings.silent) {
+      if (hasBroken_beforeunload()) {
+        // The 'beforeunload' event does not work correctly
+        // on Apple mobile devices, so we will intercept any
+        // clicks on outgoing links (ignore blank links and
+        // local page links that begin with '#'). This won't
+        // stop a refresh or back button, but it is better
+        // than nothing.
+        $('a').on('click', function(evt) {
+          var href = $(evt.target).closest('a').attr('href');
+          if (href !== undefined && !(href.match(/^#/) || href.trim() == '')) {
+            return confirmExit();
+          }
+        }); 
+      } else {
+        $(window).bind('beforeunload', confirmExit);
+      }
     }
 
     return this.each(function(elem) {
@@ -167,7 +218,7 @@
         return;
       }
       var $form = $(this);
-        
+
       $form.submit(function() {
         $form.removeClass(settings.dirtyClass);
       });
