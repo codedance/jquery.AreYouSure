@@ -8,7 +8,7 @@
  *
  * Author:  chris.dance@papercut.com
  * Version: 1.7.0
- * Date:    24th Feb 2014
+ * Date:    18th May 2014
  */
 (function($) {
   

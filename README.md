@@ -127,8 +127,12 @@ $(function() {
     $('form').areYouSure( {'addRemoveFieldsMarksDirty':true} );
     
     /*
-    *  If you need to force a re-check due to some change that isn't tracked 
-    * automatically then you can trigger a form check as follows:
+    *  Sometimes you may have advanced forms that change their state via
+    *  custom JavaScript or 3rd-party component JavaScript. Are-You-Sure may 
+    *  not automatically detect these state changes. Examples include:
+    *     - Updating a hidden input field via background JS.
+    *     - Using a [rich WYSIWYG edit control](https://github.com/codedance/jquery.AreYouSure/issues/31).
+    *  One solution is to manually trigger a form check as follows:
     */
     $('#my-form').trigger('checkform.areYouSure');
 	
@@ -138,13 +142,13 @@ $(function() {
     */
     $('#my-adv-form').areYouSure({
         change: function() {
-                  // Enable save button only if the form is dirty. i.e. something to save.
-                  if ($(this).hasClass('dirty')) {
-                    $(this).find('input[type="submit"]').removeAttr('disabled');
-                  } else {
-                    $(this).find('input[type="submit"]').attr('disabled', 'disabled');
-                  }
-                }
+              // Enable save button only if the form is dirty. i.e. something to save.
+              if ($(this).hasClass('dirty')) {
+                $(this).find('input[type="submit"]').removeAttr('disabled');
+              } else {
+                $(this).find('input[type="submit"]').attr('disabled', 'disabled');
+              }
+            }
     });
     
 }
@@ -175,11 +179,16 @@ so you can stay up-to-date with updates.
 This [demo page](http://www.papercut.com/products/free_software/are-you-sure/demo/are-you-sure-demo.html)
 hosts a number of example forms.
 
+###Supported Browsers
+*Are-you-sure* has been tested on the following browsers:
+ * IE 9 through 11
+ * Google Chrome (verisons since 2012)
+ * Firefox (versions since 2012)
+ * Safari (versions since 2012)
 
 ###Known Issues & Limitations
  * The custom message option may not work on Firefox ([Firefox bug 588292](https://bugzilla.mozilla.org/show_bug.cgi?id=588292)).
  * The ```windows.beforeunload``` event is not supported on current Opera (Feb 2013).  This will change with their move to WebKit.
-
 
 ###Future
 The aim is to keep *Are-you-sure* simple and light. If you think you have 
@@ -188,7 +197,9 @@ in the issues list.
 
 ###Release History
 
-**2014-02-XX** (1.7)
+**2014-05-18** (1.7)
+* Fixed multiple warning dialogs that may appear on IE and recent versions of Chrome
+* Improved documentation
 
 **2014-02-07** (1.6)
 * Add field count tracking (```addRemoveFieldsMarksDirty```) (contrib *jonegerton*)
