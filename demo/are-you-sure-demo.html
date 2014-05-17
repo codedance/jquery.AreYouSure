@@ -180,6 +180,7 @@
       form > div input[type="time"],
       form > div input[type="url"],
       form > div input[type="week"],
+      form > div input:not([type]),
       form > div textarea,
       form > div select,
       form > div button {
@@ -509,6 +510,10 @@
             <option value="h">Heavy</option>
          </optgroup>
         </select>
+      </div>
+      <div>
+          <label for="example-6-plain">plain old field</label>
+          <input name="example-6-plain" />
       </div>
       
       <div class="buttons">

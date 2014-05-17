@@ -22,7 +22,7 @@
         'silent' : false,
         'addRemoveFieldsMarksDirty' : false,
         'fieldEvents' : 'change keyup propertychange input',
-        'fieldSelector': "select,textarea,input[type='text'],input[type='password'],input[type='checkbox'],input[type='radio'],input[type='hidden'],input[type='color'],input[type='date'],input[type='datetime'],input[type='datetime-local'],input[type='email'],input[type='month'],input[type='number'],input[type='range'],input[type='search'],input[type='tel'],input[type='time'],input[type='url'],input[type='week'],input[type='file']"
+        'fieldSelector': "select,textarea,input"
       }, options);
 
     var getValue = function($field) {
@@ -153,11 +153,17 @@
       initForm($(this));
     }
 
-    if (!settings.silent) {
+    if (!settings.silent && !window.aysUnloadSet) {
+      window.aysUnloadSet = true;
       $(window).bind('beforeunload', function() {
         $dirtyForms = $("form").filter('.' + settings.dirtyClass);
         if ($dirtyForms.length > 0) {
-          // $dirtyForms.removeClass(settings.dirtyClass); // Prevent multiple calls?
+          // Prevent multiple prompts
+          if (window.aysHasPrompted) {
+            return;
+          }
+          window.aysHasPrompted = true;
+          window.setTimeout(function() {window.aysHasPrompted = false;}, 1000);
           return settings.message;
         }
       });
