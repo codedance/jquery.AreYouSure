@@ -176,13 +176,16 @@ to add an extra browser round trip. It's recommended that you consider
 concatenating it with other common JS lib files, and/or even cut-n-pasting 
 the code (and license header) into one of your existing JS files.
 
+For experimental Mobile Safari support, also include ```ays-beforeunload-shim.js``` 
+(see Known Issues below).
+
 *Are-you-sure* may also be installed with [Bower](http://twitter.github.com/bower/):
 
 ``` bash
 $ bower install jquery.are-you-sure
 ```
 
-If you're using, or like, *Are-you-sure* make sure you star/watch this project
+If you're using, or like, *Are-you-sure* make sure you **star/watch** this project
 so you can stay up-to-date with updates.
 
 ###Demo
