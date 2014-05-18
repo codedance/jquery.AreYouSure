@@ -225,7 +225,7 @@ in the issues list.
 * Various minor fixes (e.g. support input fields with no type=)
 * Minor performance improvements on pages with multiple forms
 * Improved documentation and examples
-* Thanks to [lfjeff](https://github.com/lfjeff) for the contribution and ideas!
+* Thanks to [lfjeff](https://github.com/lfjeff) and [aqlong](https://github.com/aqlong) for the contribution and ideas!
 
 **2014-02-07** (1.6)
 
