@@ -131,7 +131,7 @@ $(function() {
     *  custom JavaScript or 3rd-party component JavaScript. Are-You-Sure may 
     *  not automatically detect these state changes. Examples include:
     *     - Updating a hidden input field via background JS.
-    *     - Using a [rich WYSIWYG edit control](https://github.com/codedance/jquery.AreYouSure/issues/31).
+    *     - Using a [rich WYSIWYG edit control](https://github.com/codedance/jquery.AreYouSure/issues/17).
     *  One solution is to manually trigger a form check as follows:
     */
     $('#my-form').trigger('checkform.areYouSure');
@@ -180,15 +180,26 @@ This [demo page](http://www.papercut.com/products/free_software/are-you-sure/dem
 hosts a number of example forms.
 
 ###Supported Browsers
-*Are-you-sure* has been tested on the following browsers:
- * IE 9 through 11
- * Google Chrome (verisons since 2012)
- * Firefox (versions since 2012)
- * Safari (versions since 2012)
+*Are-you-sure* has been tested on and fully supports the following browsers:
+
+* IE 9 through 11
+* Google Chrome (versions since 2012)
+* Firefox (versions since 2012)
+* Safari (versions since 2012)
+
+Experimental support is available on iOS and Opera via the *beforeunload* shim (see below).
 
 ###Known Issues & Limitations
- * The custom message option may not work on Firefox ([Firefox bug 588292](https://bugzilla.mozilla.org/show_bug.cgi?id=588292)).
- * The ```windows.beforeunload``` event is not supported on current Opera (Feb 2013).  This will change with their move to WebKit.
+
+####Mobile Safari Support and Opera
+The ```windows.beforeunload``` event is not supported on iOS (iPhone, iPad, and iPod). An
+experimental shim offering partial *beforeunload* emulation is provided to help plug this gap.
+It works by scanning the page for anchor links and argments the default behaviour to first
+check with *Are-you-sure* before navigating away. To use, simply include 
+```ays-beforeunload-shim.js``` in your page.
+
+####Firefox
+The custom message option may not work on Firefox ([Firefox bug 588292](https://bugzilla.mozilla.org/show_bug.cgi?id=588292)).
 
 ###Future
 The aim is to keep *Are-you-sure* simple and light. If you think you have 
@@ -197,21 +208,29 @@ in the issues list.
 
 ###Release History
 
-**2014-05-18** (1.7)
+**2014-05-19** (1.7)
+
 * Fixed multiple warning dialogs that may appear on IE and recent versions of Chrome
-* Improved documentation
+* Experimental support for iOS Mobile Safari (via a *beforeunload* shim)
+* Various minor fixes (e.g. support input fields with no type=)
+* Minor performance improvements on pages with multiple forms
+* Improved documentation and examples
+* Thanks to [lfjeff](https://github.com/lfjeff) for the contribution and ideas!
 
 **2014-02-07** (1.6)
+
 * Add field count tracking (```addRemoveFieldsMarksDirty```) (contrib *jonegerton*)
 * Added event to manually trigger a form check/recheck  (contrib *jonegerton*)
 * Thanks to [jonegerton](https://github.com/jonegerton) for the contribution!
 
 **2013-11-15** (1.5)
+
 * Added support for HTML5 input field types. (contrib *albinsunnanbo*)
 * New option to reinitialize/reset the dirty state.  This is handy if you're managing your own async submit/save using AJAX. (contrib *albinsunnanbo*)
 * Thanks to [albinsunnanbo](https://github.com/albinsunnanbo) for the contribution!
 
 **2013-10-2** (1.4)
+
 * Added dirty and clean "events" 
 * Added an option to disable the message (dirty tracking only)
 * Added an option to rescan a form to look/detect any new fields

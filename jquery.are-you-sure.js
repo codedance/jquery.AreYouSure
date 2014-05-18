@@ -157,15 +157,16 @@
       window.aysUnloadSet = true;
       $(window).bind('beforeunload', function() {
         $dirtyForms = $("form").filter('.' + settings.dirtyClass);
-        if ($dirtyForms.length > 0) {
-          // Prevent multiple prompts
-          if (window.aysHasPrompted) {
-            return;
-          }
-          window.aysHasPrompted = true;
-          window.setTimeout(function() {window.aysHasPrompted = false;}, 1000);
-          return settings.message;
+        if ($dirtyForms.length == 0) {
+          return;
         }
+        // Prevent multiple prompts
+        if (window.aysHasPrompted) {
+          return;
+        }
+        window.aysHasPrompted = true;
+        window.setTimeout(function() {window.aysHasPrompted = false;}, 1000);
+        return settings.message;
       });
     }
 
