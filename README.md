@@ -54,9 +54,9 @@ To ignore selected fields from the dirtyness check:
 ```html
   <form id="myForm" name="myform" action="/post" method="post">
 
-    Field 1: (checked)                  <input type="text" name="field1"> <br />
-    Field 2: (ignored with attribute):  <input type="text" name="field2" data-ays-ignore="true"> <br />
-    Field 3: (ignored with class):      <input type="text" name="field3" class="ays-ignore"> <br />
+    Field 1: (checked)  <input type="text" name="field1"> <br />
+    Field 2: (ignored): <input type="text" name="field2" data-ays-ignore="true"> <br />
+    Field 3: (ignored): <input type="text" name="field3" class="ays-ignore"> <br />
 
     <input type="submit" value="Submit">
 
@@ -77,7 +77,6 @@ $(function() {
     */
     $('form').areYouSure( {'silent':true} );
 	
-
     /*
     *  Dirtyness Change Events
     *  Are-You-Sure fires off "dirty" and "clean" events when the form's state
@@ -150,6 +149,17 @@ $(function() {
               }
             }
     });
+
+    /*
+    *  Mixing in your own logic into the warning.
+    */
+    $('#my-form').areYouSure( {'silent':true} );
+    $(window).on('beforeunload', function() {
+        isSunday = (0 == (new Date()).getDay());
+        if ($('#my-form').hasClass('dirty') && isSunday) {
+            return "Because it's Sunday, I'll be nice and let you know you forgot to save!";
+        }
+    }
     
 }
 ```
