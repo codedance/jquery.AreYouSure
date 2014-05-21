@@ -38,23 +38,11 @@
 
       var val;
       var type = $field.attr('type');
-      if ($field.is('select')) {
-        type = 'select';
-      }
 
       switch (type) {
         case 'checkbox':
         case 'radio':
           val = $field.is(':checked');
-          break;
-        case 'select':
-          val = '';
-          $field.find('option').each(function(o) {
-            var $option = $(this);
-            if ($option.is(':selected')) {
-              val += $option.val();
-            }
-          });
           break;
         default:
           val = $field.val();
@@ -114,8 +102,8 @@
     var initForm = function($form) {
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(function() { storeOrigValue($(this)); });
-      $(fields).unbind('change keyup', checkForm);
-      $(fields).bind('change keyup', checkForm);
+      $(fields).unbind('focus change keyup', checkForm);
+      $(fields).bind('focus change keyup', checkForm);
       $form.data("ays-orig-field-count", $(fields).length);
       setDirtyStatus($form, false);
     };
@@ -141,7 +129,7 @@
         var $field = $(this);
         if (!$field.data('ays-orig')) {
           storeOrigValue($field);
-          $field.bind('change keyup', checkForm);
+          $field.bind('focus change keyup', checkForm);
         }
       });
       // Check for changes while we're here
