@@ -214,10 +214,14 @@ check with *Are-you-sure* before navigating away. To use, simply include
 ####Firefox
 The custom message option may not work on Firefox ([Firefox bug 588292](https://bugzilla.mozilla.org/show_bug.cgi?id=588292)).
 
-###Future
+###Future / Developers
 The aim is to keep *Are-you-sure* simple and light. If you think you have 
 a good idea which is aligned with this objective, please voice your thoughts 
 in the issues list.
+
+*Pull Requests:* If possible,  please submit your pull request based off the most 
+recent ```dev-*``` branch rather than master.  This will make it easier to 
+merge your code into the next planned release.
 
 ###Release History
 
