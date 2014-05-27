@@ -16,7 +16,7 @@
     "are-you-sure",
     "save-warning"
   ],
-  "license": "MIT",
+  "license": "MIT/GPLv2",
   "ignore": [
     "**/.*",
     "demo"
