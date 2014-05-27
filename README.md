@@ -1,7 +1,6 @@
-Are You Sure?  - A light "dirty forms" JQuery Plugin!
+Are You Sure? - A light "dirty forms" JQuery Plugin
 ======
 **Version:** 1.7
-
 
 *Are-you-sure* (```jquery.are-you-sure.js```) is simple light-weight "dirty 
 form" JQuery Plugin for modern browsers.  It helps prevent users from losing 
@@ -181,7 +180,7 @@ For experimental Mobile Safari support, also include ```ays-beforeunload-shim.js
 
 *Are-you-sure* may also be installed with [Bower](http://twitter.github.com/bower/):
 
-``` bash
+```bash
 $ bower install jquery.are-you-sure
 ```
 
@@ -214,14 +213,19 @@ check with *Are-you-sure* before navigating away. To use, simply include
 ####Firefox
 The custom message option may not work on Firefox ([Firefox bug 588292](https://bugzilla.mozilla.org/show_bug.cgi?id=588292)).
 
-###Future / Developers
+###Development
 The aim is to keep *Are-you-sure* simple and light. If you think you have 
 a good idea which is aligned with this objective, please voice your thoughts 
 in the issues list.
 
-*Pull Requests:* If possible,  please submit your pull request based off the most 
-recent ```dev-*``` branch rather than master.  This will make it easier to 
-merge your code into the next planned release.
+####Pull Requests
+If possible, please submit your pull request against the most recent ```dev-*``` branch rather than master. This will make it easier to merge your code into the next planned release.
+
+####Running tests
+```bash
+$ npm install
+$ npm test
+```
 
 ###Release History
 
@@ -268,7 +272,7 @@ merge your code into the next planned release.
 
 
 ###Prerequisites
-jQuery version 1.4.2 or higher. 1.10+ recommended.
+jQuery version 1.4.2 or higher. 2.0+ or 1.10+ recommended.
 
 
 ###License
@@ -280,4 +284,3 @@ The same as JQuery...
     Copyright (c) 2012-2014, Chris Dance - PaperCut Software http://www.papercut.com/
     Dual licensed under the MIT or GPL Version 2 licenses.
     http://jquery.org/license
-

@@ -23,5 +23,8 @@
   ],
   "dependencies": {
     "jquery": ">=1.4.2"
+  },
+  "devDependencies": {
+    "jasmine-jquery": "~2.0.3"
   }
 }
