@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   grunt.config.init({
     karma: {
       options: {
-        browsers: [ 'Chrome', 'Firefox', 'Safari', 'Opera', 'IE' ],
+        browsers: [ 'Chrome', 'Firefox', 'Safari', 'IE' ],
         frameworks: [ 'jasmine' ],
         reportSlowerThan: 500,
         singleRun: true
