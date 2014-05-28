@@ -8,7 +8,7 @@
  *
  * Author:  chris.dance@papercut.com
  * Version: 1.7.0
- * Date:    18th May 2014
+ * Date:    28th May 2014
  */
 (function($) {
   
@@ -49,13 +49,7 @@
           val = $field.is(':checked');
           break;
         case 'select':
-          val = '';
-          $field.find('option').each(function(o) {
-            var $option = $(this);
-            if ($option.is(':selected')) {
-              val += $option.val();
-            }
-          });
+          val = $field.val().toString();
           break;
         default:
           val = $field.val();

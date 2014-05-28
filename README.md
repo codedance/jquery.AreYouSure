@@ -229,7 +229,7 @@ $ npm test
 
 ###Release History
 
-**2014-05-19** (1.7)
+**2014-05-28** (1.7)
 
 * Fixed multiple warning dialogs that may appear on IE and recent versions of Chrome
 * Experimental support for iOS Mobile Safari (via a *beforeunload* shim)
