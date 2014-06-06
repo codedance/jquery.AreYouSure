@@ -203,10 +203,10 @@ Experimental support is available on iOS and Opera via the *beforeunload* shim (
 
 ###Known Issues & Limitations
 
-####Mobile Safari Support and Opera
+####Mobile Safari and Opera
 The ```windows.beforeunload``` event is not supported on iOS (iPhone, iPad, and iPod). An
 experimental shim offering partial *beforeunload* emulation is provided to help plug this gap.
-It works by scanning the page for anchor links and argments the default behaviour to first
+It works by scanning the page for anchor links and augments the default behaviour to first
 check with *Are-you-sure* before navigating away. To use, simply include 
 ```ays-beforeunload-shim.js``` in your page.
 
