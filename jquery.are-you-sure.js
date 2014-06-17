@@ -49,7 +49,9 @@
           val = $field.is(':checked');
           break;
         case 'select':
-          val = $field.val().toString();
+          if($field.val()) {
+            val = $field.val().toString();
+          }
           break;
         default:
           val = $field.val();
