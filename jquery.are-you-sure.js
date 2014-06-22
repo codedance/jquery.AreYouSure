@@ -7,8 +7,8 @@
  * http://jquery.org/license
  *
  * Author:  chris.dance@papercut.com
- * Version: 1.7.0
- * Date:    28th May 2014
+ * Version: 1.8.0
+ * Date:    22nd June 2014
  */
 (function($) {
   
@@ -156,12 +156,14 @@
         if ($dirtyForms.length == 0) {
           return;
         }
-        // Prevent multiple prompts
-        if (window.aysHasPrompted) {
-          return;
+        // Prevent multiple prompts - seen on Chrome and IE
+        if (navigator.userAgent.toLowerCase().match(/msie|chrome/)) {
+          if (window.aysHasPrompted) {
+            return;
+          }
+          window.aysHasPrompted = true;
+          window.setTimeout(function() {window.aysHasPrompted = false;}, 900);
         }
-        window.aysHasPrompted = true;
-        window.setTimeout(function() {window.aysHasPrompted = false;}, 1000);
         return settings.message;
       });
     }

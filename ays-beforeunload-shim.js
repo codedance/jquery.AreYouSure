@@ -7,7 +7,6 @@
  * http://jquery.org/license
  *
  * Author:  chris.dance@papercut.com
- * Version: 1.7.0
  * Date:    19th May 2014
  */
 $(function() {

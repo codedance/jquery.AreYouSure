@@ -1,6 +1,6 @@
 Are You Sure? - A light "dirty forms" JQuery Plugin
 ======
-**Version:** 1.7
+**Version:** 1.8
 
 *Are-you-sure* (```jquery.are-you-sure.js```) is simple light-weight "dirty 
 form" JQuery Plugin for modern browsers.  It helps prevent users from losing 
@@ -228,6 +228,12 @@ $ npm test
 ```
 
 ###Release History
+
+**2014-06-22** (1.8) - This is a minor bugfix release:
+
+* Fixed NPE that may occur when using a 'multiple' option field.
+* Minor timing tweak to help mitigate bypass issue raised in [#45](https://github.com/codedance/jquery.AreYouSure/issues/45)
+* Thanks [apassant](https://github.com/apassant) and [amatenkov](https://github.com/amatenkov) for the contribution.
 
 **2014-05-28** (1.7)
 
