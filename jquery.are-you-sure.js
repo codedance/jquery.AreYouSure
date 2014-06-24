@@ -51,6 +51,8 @@
         case 'select':
           if($field.val()) {
             val = $field.val().toString();
+          } else {
+            val = $field.prop("selectedIndex").toString();
           }
           break;
         default:
