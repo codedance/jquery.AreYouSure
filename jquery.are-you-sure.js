@@ -172,11 +172,6 @@
 
     return this.each(function(elem) {
       if (!$(this).is('form')) {
-        if (typeof console !== 'undefined' && 
-            typeof console.warn !== 'undefined') {
-          console.warn("jquery.AreYouSure can only attach to FORM elements.\n"+
-            "The jQuery selector used included a " + this.tagName + " element.");
-        }
         return;
       }
       var $form = $(this);
