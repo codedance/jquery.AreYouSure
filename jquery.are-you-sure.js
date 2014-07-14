@@ -11,25 +11,25 @@
  * Date:    22nd June 2014
  */
 (function($) {
-  
+
   $.fn.areYouSure = function(options) {
-      
+
     var settings = $.extend(
-      {
-        'message' : 'You have unsaved changes!',
-        'dirtyClass' : 'dirty',
-        'change' : null,
-        'silent' : false,
-        'addRemoveFieldsMarksDirty' : false,
-        'fieldEvents' : 'change keyup propertychange input',
-        'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])"
-      }, options);
+            {
+              'message': 'You have unsaved changes!',
+              'dirtyClass': 'dirty',
+              'change': null,
+              'silent': false,
+              'addRemoveFieldsMarksDirty': false,
+              'fieldEvents': 'change keyup propertychange input',
+              'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])"
+            }, options);
 
     var getValue = function($field) {
       if ($field.hasClass('ays-ignore')
-          || $field.hasClass('aysIgnore')
-          || $field.attr('data-ays-ignore')
-          || $field.attr('name') === undefined) {
+              || $field.hasClass('aysIgnore')
+              || $field.attr('data-ays-ignore')
+              || $field.attr('name') === undefined) {
         return null;
       }
 
@@ -49,7 +49,7 @@
           val = $field.is(':checked');
           break;
         case 'select':
-          if($field.val()) {
+          if ($field.val()) {
             val = $field.val().toString();
           } else {
             val = $field.prop("selectedIndex").toString();
@@ -76,9 +76,9 @@
         return (getValue($field) != origValue);
       };
 
-      var $form = ($(this).is('form')) 
-                    ? $(this)
-                    : $(this).parents('form');
+      var $form = ($(this).is('form'))
+              ? $(this)
+              : $(this).parents('form');
 
       // Test on the target first as it's the most likely to be dirty
       if (isFieldDirty($(evt.target))) {
@@ -88,7 +88,7 @@
 
       $fields = $form.find(settings.fieldSelector);
 
-      if (settings.addRemoveFieldsMarksDirty) {              
+      if (settings.addRemoveFieldsMarksDirty) {
         // Check if field count has changed
         var origCount = $form.data("ays-orig-field-count");
         if (origCount != $fields.length) {
@@ -106,13 +106,15 @@
           return false; // break
         }
       });
-      
+
       setDirtyStatus($form, isDirty);
     };
 
     var initForm = function($form) {
       var fields = $form.find(settings.fieldSelector);
-      $(fields).each(function() { storeOrigValue($(this)); });
+      $(fields).each(function() {
+        storeOrigValue($(this));
+      });
       $(fields).unbind(settings.fieldEvents, checkForm);
       $(fields).bind(settings.fieldEvents, checkForm);
       $form.data("ays-orig-field-count", $(fields).length);
@@ -122,13 +124,16 @@
     var setDirtyStatus = function($form, isDirty) {
       var changed = isDirty != $form.hasClass(settings.dirtyClass);
       $form.toggleClass(settings.dirtyClass, isDirty);
-        
+
       // Fire change event if required
       if (changed) {
-        if (settings.change) settings.change.call($form, $form);
+        if (settings.change)
+          settings.change.call($form, $form);
 
-        if (isDirty) $form.trigger('dirty.areYouSure', [$form]);
-        if (!isDirty) $form.trigger('clean.areYouSure', [$form]);
+        if (isDirty)
+          $form.trigger('dirty.areYouSure', [$form]);
+        if (!isDirty)
+          $form.trigger('clean.areYouSure', [$form]);
         $form.trigger('change.areYouSure', [$form]);
       }
     };
@@ -164,7 +169,9 @@
             return;
           }
           window.aysHasPrompted = true;
-          window.setTimeout(function() {window.aysHasPrompted = false;}, 900);
+          window.setTimeout(function() {
+            window.aysHasPrompted = false;
+          }, 900);
         }
         return settings.message;
       });
@@ -172,14 +179,19 @@
 
     return this.each(function(elem) {
       if (!$(this).is('form')) {
+        if (typeof console !== 'undefined' && typeof console.warn !== 'undefined') {
+          console.warn("jquery.AreYouSure can only attach to FORM elements.\nThe jQuery selector used included a " + this.tagName + " element.");
+        }
         return;
       }
       var $form = $(this);
-        
+
       $form.submit(function() {
         $form.removeClass(settings.dirtyClass);
       });
-      $form.bind('reset', function() { setDirtyStatus($form, false); });
+      $form.bind('reset', function() {
+        setDirtyStatus($form, false);
+      });
       // Add a custom events
       $form.bind('rescan.areYouSure', rescan);
       $form.bind('reinitialize.areYouSure', reinitialize);
