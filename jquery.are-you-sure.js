@@ -67,9 +67,11 @@
     var checkForm = function(evt) {
 
       var isFieldDirty = function($field) {
-        var origValue = $field.data('ays-orig');
-        if (undefined === origValue) {
-          return false;
+        if (!$field.is('select')) {
+          var origValue = $field.data('ays-orig');
+          if (undefined === origValue) {
+            return false;
+          }
         }
         return (getValue($field) != origValue);
       };
