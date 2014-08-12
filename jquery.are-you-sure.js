@@ -7,8 +7,8 @@
  * http://jquery.org/license
  *
  * Author:  chris.dance@papercut.com
- * Version: 1.8.0
- * Date:    22nd June 2014
+ * Version: 1.9.0
+ * Date:    13th August 2014
  */
 (function($) {
   
