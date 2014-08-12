@@ -49,11 +49,13 @@
           val = $field.is(':checked');
           break;
         case 'select':
-          if($field.val()) {
-            val = $field.val().toString();
-          } else {
-            val = $field.prop("selectedIndex").toString();
-          }
+          val = '';
+          $field.find('option').each(function(o) {
+            var $option = $(this);
+            if ($option.is(':selected')) {
+              val += $option.val();
+            }
+          });
           break;
         default:
           val = $field.val();
