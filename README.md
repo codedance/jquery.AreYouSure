@@ -201,6 +201,14 @@ hosts a number of example forms.
 
 Experimental support is available on iOS and Opera via the *beforeunload* shim (see below).
 
+###Integration with 3rd Party Components
+In general, *Are-you-sure* plays nicely with standard form elements and the majority of customized form components.
+Some components such as WYSIWYG rich editors may need some additional "wiring code".  This section documents
+known integration methods:
+
+* [Chosen jQuery Plugin](http://harvesthq.github.io/chosen/) - Integration discussed [here in issue #48](https://github.com/codedance/jquery.AreYouSure/issues/48)
+* [Redactor WYSIWYG html editor](http://imperavi.com/redactor) - Integration discussed [here in issue #17](https://github.com/codedance/jquery.AreYouSure/issues/17)
+
 ###Known Issues & Limitations
 
 ####Mobile Safari and Opera
