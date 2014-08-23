@@ -1,7 +1,7 @@
 {
     "name": "codedance/jquery-areyousure",
     "type": "component",
-    "description": "A light-weight jQuery "dirty forms" Plugin",
+    "description": "A light-weight jQuery \"dirty forms\" Plugin",
     "keywords": [
         "jquery",
         "form"
