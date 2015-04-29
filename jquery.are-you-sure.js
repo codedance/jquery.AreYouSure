@@ -22,7 +22,8 @@
         'silent' : false,
         'addRemoveFieldsMarksDirty' : false,
         'fieldEvents' : 'change keyup propertychange input',
-        'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])"
+        'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])",
+		'checkDisabled': true
       }, options);
 
     var getValue = function($field) {
@@ -33,7 +34,7 @@
         return null;
       }
 
-      if ($field.is(':disabled')) {
+      if (settings.checkDisabled && $field.is(':disabled')) {
         return 'ays-disabled';
       }
 
