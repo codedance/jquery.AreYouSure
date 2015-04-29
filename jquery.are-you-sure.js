@@ -23,14 +23,15 @@
         'addRemoveFieldsMarksDirty' : false,
         'fieldEvents' : 'change keyup propertychange input',
         'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])",
-		'checkDisabled': true
+        'checkDisabled': true,
+	'checkAttrName': true
       }, options);
 
     var getValue = function($field) {
       if ($field.hasClass('ays-ignore')
           || $field.hasClass('aysIgnore')
           || $field.attr('data-ays-ignore')
-          || $field.attr('name') === undefined) {
+          || (settings.checkAttrName && $field.attr('name') === undefined)) {
         return null;
       }
 
