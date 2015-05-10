@@ -178,7 +178,7 @@ the code (and license header) into one of your existing JS files.
 For experimental Mobile Safari support, also include ```ays-beforeunload-shim.js``` 
 (see Known Issues below).
 
-*Are-you-sure* may also be installed with [Bower](http://twitter.github.com/bower/):
+*Are-you-sure* may also be installed with [Bower](http://bower.io/):
 
 ```bash
 $ bower install jquery.are-you-sure
