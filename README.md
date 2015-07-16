@@ -167,14 +167,17 @@ $(function() {
     */
     // Initialize/Bind Are-you-sure to your form first
     $('#myform').areYouSure();
-	
     // Custom submit event handler defined second
     $('#myform').submit(function (event) {
         if (validation_fails) {
-	    $('#myform').trigger('checkform.areYouSure');
-	    event.preventDefault();
+            // Force Are-you-sure to recheck the form since we're not leaving the page afterall
+            $('#myform').trigger('checkform.areYouSure');
+            // ... Show message to user, log errors...etc
+            // Prevent form from completing the submit process
+            event.preventDefault();
         }
     });
+    
 }
 ```
 The [demo page](http://www.papercut.com/products/free_software/are-you-sure/demo/are-you-sure-demo.html)
