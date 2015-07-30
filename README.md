@@ -62,6 +62,8 @@ To ignore selected fields from the dirtyness check:
   </form>
 ```
 
+Also, any input element without a `name` attribute is ignored.
+
 ###Advanced Usage
 
 ```javascript
