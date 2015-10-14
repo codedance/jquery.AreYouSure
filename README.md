@@ -160,6 +160,24 @@ $(function() {
         }
     }
     
+    /*
+    *  Usage with a custom jQuery .submit() event handler and validation
+    *  Important to bind Are-you-sure to your form prior to binding your custom submit event handler
+    *  This way you can have the form rechecked for dirtiness if your validation fails.
+    */
+    // Initialize/Bind Are-you-sure to your form first
+    $('#myform').areYouSure();
+    // Custom submit event handler defined second
+    $('#myform').submit(function (event) {
+        if (validation_fails) {
+            // Force Are-you-sure to recheck the form since we're not leaving the page afterall
+            $('#myform').trigger('checkform.areYouSure');
+            // ... Show message to user, log errors...etc
+            // Prevent form from completing the submit process
+            event.preventDefault();
+        }
+    });
+    
 }
 ```
 The [demo page](http://www.papercut.com/products/free_software/are-you-sure/demo/are-you-sure-demo.html)
@@ -208,6 +226,7 @@ known integration methods:
 
 * [Chosen jQuery Plugin](http://harvesthq.github.io/chosen/) - Integration discussed [here in issue #48](https://github.com/codedance/jquery.AreYouSure/issues/48)
 * [Redactor WYSIWYG html editor](http://imperavi.com/redactor) - Integration discussed [here in issue #17](https://github.com/codedance/jquery.AreYouSure/issues/17)
+* [jQuery Submit Handler](http://api.jquery.com/submit/) - Integration discussed [here in issue #31](https://github.com/codedance/jquery.AreYouSure/issues/31).  See Advanced Usage example above.
 
 ###Known Issues & Limitations
 
