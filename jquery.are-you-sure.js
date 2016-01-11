@@ -25,49 +25,10 @@
         'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])"
       }, options);
 
-    var getValue = function($field) {
-      if ($field.hasClass('ays-ignore')
-          || $field.hasClass('aysIgnore')
-          || $field.attr('data-ays-ignore')
-          || $field.attr('name') === undefined) {
-        return null;
-      }
-
-      if ($field.is(':disabled')) {
-        return 'ays-disabled';
-      }
-
-      var val;
-      var type = $field.attr('type');
-      if ($field.is('select')) {
-        type = 'select';
-      }
-
-      switch (type) {
-        case 'checkbox':
-        case 'radio':
-          val = $field.is(':checked');
-          break;
-        case 'select':
-          val = '';
-          $field.find('option').each(function(o) {
-            var $option = $(this);
-            if ($option.is(':selected')) {
-              val += $option.val();
-            }
-          });
-          break;
-        default:
-          val = $field.val();
-      }
-
-      return val;
-    };
-
     var storeOrigValue = function($field, $form) {
       // If possible, save the field data on the form to be able to check the
       // field value when DOM manipulations occur within the form.
-      var field_value = getValue($field);
+      var field_value = $.fn.areYouSure.getValue($field);
       if ($field.attr('id')) {
         $form.data('ays-orig-field-id-' + $field.attr('id'), field_value);
       }
@@ -81,26 +42,16 @@
       }
     };
 
-    var getOrigValue = function($field, $form) {
-      if ($field.attr('id')) {
-        return $form.data('ays-orig-field-id-' + $field.attr('name'));
-      }
-      else if ($field.attr('type') !== 'radio' && $field.attr('name')) {
-        return $form.data('ays-orig-field-name-' + $field.attr('name'));
-      }
-      else {
-        return $field.data('ays-orig');
-      }
-    }
+
 
     var checkForm = function(evt) {
 
       var isFieldDirty = function($field, $form) {
-        var origValue = getOrigValue($field, $form);
+        var origValue = $.fn.areYouSure.getOrigValue($field, $form);
         if (undefined === origValue) {
           return false;
         }
-        return (getValue($field) != origValue);
+        return ($.fn.areYouSure.getValue($field) != origValue);
       };
 
       var $form = ($(this).is('form'))
@@ -165,7 +116,7 @@
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(function() {
         var $field = $(this);
-        if (!getOrigValue($field, $form)) {
+        if (!$.fn.areYouSure.getOrigValue($field, $form)) {
           storeOrigValue($field, $form);
           $field.bind(settings.fieldEvents, checkForm);
         }
@@ -223,4 +174,56 @@
       initForm($form);
     });
   };
+
+  $.fn.areYouSure.getValue = function($field) {
+    if ($field.hasClass('ays-ignore')
+      || $field.hasClass('aysIgnore')
+      || $field.attr('data-ays-ignore')
+      || $field.attr('name') === undefined) {
+      return null;
+    }
+
+    if ($field.is(':disabled')) {
+      return 'ays-disabled';
+    }
+
+    var val;
+    var type = $field.attr('type');
+    if ($field.is('select')) {
+      type = 'select';
+    }
+
+    switch (type) {
+      case 'checkbox':
+      case 'radio':
+        val = $field.is(':checked');
+        break;
+      case 'select':
+        val = '';
+        $field.find('option').each(function(o) {
+          var $option = $(this);
+          if ($option.is(':selected')) {
+            val += $option.val();
+          }
+        });
+        break;
+      default:
+        val = $field.val();
+    }
+
+    return val;
+  };
+
+  $.fn.areYouSure.getOrigValue = function($field, $form) {
+    if ($field.attr('id')) {
+      return $form.data('ays-orig-field-id-' + $field.attr('name'));
+    }
+    else if ($field.attr('type') !== 'radio' && $field.attr('name')) {
+      return $form.data('ays-orig-field-name-' + $field.attr('name'));
+    }
+    else {
+      return $field.data('ays-orig');
+    }
+  };
+
 })(jQuery);
