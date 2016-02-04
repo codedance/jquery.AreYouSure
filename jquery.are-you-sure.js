@@ -50,11 +50,8 @@
           break;
         case 'select':
           val = '';
-          $field.find('option').each(function(o) {
-            var $option = $(this);
-            if ($option.is(':selected')) {
-              val += $option.val();
-            }
+          $field.find('option:selected').each(function(o) {
+              val += $(this).val();
           });
           break;
         default:
