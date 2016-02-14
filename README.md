@@ -46,7 +46,7 @@ $(function() {
     // With a custom message
     $('form').areYouSure( {'message':'Your profile details are not saved!'} );
 
-}
+})
 ```
 To ignore selected fields from the dirtyness check: 
 
