@@ -117,6 +117,7 @@
       $(fields).each(function() { storeOrigValue($(this)); });
       $(fields).unbind(settings.fieldEvents, checkForm);
       $(fields).bind(settings.fieldEvents, checkForm);
+      $form.data('ays-message', settings.message);
       $form.data("ays-orig-field-count", $(fields).length);
       setDirtyStatus($form, false);
     };
@@ -168,7 +169,7 @@
           window.aysHasPrompted = true;
           window.setTimeout(function() {window.aysHasPrompted = false;}, 900);
         }
-        return settings.message;
+        return $dirtyForms.first().data('aysMessage') || settings.message;
       });
     }
 
