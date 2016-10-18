@@ -103,9 +103,15 @@
       var isDirty = false;
       $fields.each(function() {
         $field = $(this);
-        if (isFieldDirty($field)) {
-          isDirty = true;
-          return false; // break
+        if (!$field.hasClass('ays-ignore')
+            && $field.hasClass('aysIgnore')
+            && $field.attr('data-ays-ignore')
+            && $field.attr('name') === undefined) {
+            if (isFieldDirty($field)) {
+                console.log($field);
+                isDirty = true;
+                return false; // break
+            }
         }
       });
       
