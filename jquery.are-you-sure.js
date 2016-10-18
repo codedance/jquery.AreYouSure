@@ -104,14 +104,14 @@
       $fields.each(function() {
         $field = $(this);
         if (!$field.hasClass('ays-ignore')
-            && $field.hasClass('aysIgnore')
-            && $field.attr('data-ays-ignore')
-            && $field.attr('name') === undefined) {
-            if (isFieldDirty($field)) {
-                console.log($field);
-                isDirty = true;
-                return false; // break
-            }
+          && !$field.hasClass('aysIgnore')
+          && ($field.attr('data-ays-ignore') === typeof undefined || $field.attr('data-ays-ignore') === false)
+          && $field.attr('name') !== undefined
+          && isFieldDirty($field))
+        {
+          console.log($field);
+          isDirty = true;
+          return false; // break
         }
       });
       
