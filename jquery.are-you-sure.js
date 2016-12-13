@@ -22,7 +22,8 @@
         'silent' : false,
         'addRemoveFieldsMarksDirty' : false,
         'fieldEvents' : 'change keyup propertychange input',
-        'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])"
+        'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])",
+        'startDirty': false
       }, options);
 
     var getValue = function($field) {
@@ -118,7 +119,7 @@
       $(fields).unbind(settings.fieldEvents, checkForm);
       $(fields).bind(settings.fieldEvents, checkForm);
       $form.data("ays-orig-field-count", $(fields).length);
-      setDirtyStatus($form, false);
+      setDirtyStatus($form, settings.startDirty);
     };
 
     var setDirtyStatus = function($form, isDirty) {
