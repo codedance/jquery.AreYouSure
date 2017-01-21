@@ -162,6 +162,23 @@ $(function() {
     
 }
 ```
+
+#### Javascript based page reloads
+This plugin depends on the 'beforeunload' event being triggered on the window object to detect leaving the current page. This event will not be triggered if your application uses a AJAX Navigation javascript plugin that does not unload the window object when navigating to a different page. If the javascript plugin provides an event to notify the unload of the current page, the AreYouSure plugin can be configured to listen to that event in addition to the default `beforeunload` event using the 'softPageUnloadEvent' configuration.
+
+```javascript
+
+$(function() {
+
+    // With additional event
+    $('form').areYouSure( {'softPageUnloadEvent':'your-event-name'} );
+
+    // Example: when using the turbolinks javascript plugin
+    // Refer: https://github.com/turbolinks/turbolinks#full-list-of-events
+    $('form').areYouSure( {'softPageUnloadEvent':'turbolinks:before-visit'} );
+
+}
+```
 The [demo page](http://www.papercut.com/products/free_software/are-you-sure/demo/are-you-sure-demo.html)
 shows the advanced usage options in more detail.
 
