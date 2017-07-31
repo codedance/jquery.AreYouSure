@@ -152,12 +152,23 @@
     var reinitialize = function() {
       initForm($(this));
     }
+    
+    function checkCKEditor(){
+      if (typeof(CKEDITOR) !== 'undefined'){
+        for(var x in CKEDITOR.instances){ 
+          if (CKEDITOR.instances[x].checkDirty()){
+            return false;
+          } 
+        }
+      }
+      return true;  
+    }
 
     if (!settings.silent && !window.aysUnloadSet) {
       window.aysUnloadSet = true;
       $(window).bind('beforeunload', function() {
         $dirtyForms = $("form").filter('.' + settings.dirtyClass);
-        if ($dirtyForms.length == 0) {
+        if ($dirtyForms.length == 0  && checkCKEditor()) {
           return;
         }
         // Prevent multiple prompts - seen on Chrome and IE
