@@ -68,15 +68,15 @@
       $field.data('ays-orig', getValue($field));
     };
 
-    var checkForm = function(evt) {
+    var isFieldDirty = function($field) {
+      var origValue = $field.data('ays-orig');
+      if (undefined === origValue) {
+        return false;
+      }
+      return (getValue($field) != origValue);
+    };
 
-      var isFieldDirty = function($field) {
-        var origValue = $field.data('ays-orig');
-        if (undefined === origValue) {
-          return false;
-        }
-        return (getValue($field) != origValue);
-      };
+    var checkForm = function(evt) {
 
       var $form = ($(this).is('form'))
                     ? $(this)
@@ -156,7 +156,14 @@
     var getDirtyFields = function() {
       var $form = $(this);
       var fields = $form.find(settings.fieldSelector);
-      return fields.filter(function(field) {return isFieldDirty(field);})
+      var dirtyFields = [];
+      fields.each(function() {
+        if (isFieldDirty($(this))) {
+          dirtyFields.push($(this));
+        }
+      });
+      $(this).data("dirtyFields", dirtyFields);
+      return dirtyFields
     }
 
     if (!settings.silent && !window.aysUnloadSet) {
@@ -189,7 +196,6 @@
       });
       $form.bind('reset', function() { setDirtyStatus($form, false); });
       // Add a custom events
-      $form.bind('isFieldDirty.areYouSure', isFieldDirty);
       $form.bind('getDirtyFields.areYouSure', getDirtyFields);
       $form.bind('rescan.areYouSure', rescan);
       $form.bind('reinitialize.areYouSure', reinitialize);
