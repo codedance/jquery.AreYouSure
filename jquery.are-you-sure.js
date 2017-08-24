@@ -140,7 +140,7 @@
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(function() {
         var $field = $(this);
-        if (!$field.data('ays-orig')) {
+        if (!$field.data('ays-orig') && $field.data('ays-orig') !== "") {
           storeOrigValue($field);
           $field.bind(settings.fieldEvents, checkForm);
         }
