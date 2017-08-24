@@ -153,6 +153,12 @@
       initForm($(this));
     }
 
+    var getDirtyFields = function() {
+      var $form = $(this);
+      var fields = $form.find(settings.fieldSelector);
+      return fields.filter(function(field) {return isFieldDirty(field);})
+    }
+
     if (!settings.silent && !window.aysUnloadSet) {
       window.aysUnloadSet = true;
       $(window).bind('beforeunload', function() {
@@ -183,6 +189,8 @@
       });
       $form.bind('reset', function() { setDirtyStatus($form, false); });
       // Add a custom events
+      $form.bind('isFieldDirty.areYouSure', isFieldDirty);
+      $form.bind('getDirtyFields.areYouSure', getDirtyFields);
       $form.bind('rescan.areYouSure', rescan);
       $form.bind('reinitialize.areYouSure', reinitialize);
       $form.bind('checkform.areYouSure', checkForm);
