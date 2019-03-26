@@ -11,9 +11,9 @@
  * Date:    13th August 2014
  */
 (function($) {
-  
+
   $.fn.areYouSure = function(options) {
-      
+
     var settings = $.extend(
       {
         'message' : 'You have unsaved changes!',
@@ -68,17 +68,17 @@
       $field.data('ays-orig', getValue($field));
     };
 
+    var isFieldDirty = function($field) {
+      var origValue = $field.data('ays-orig');
+      if (undefined === origValue) {
+        return false;
+      }
+      return (getValue($field) != origValue);
+    };
+
     var checkForm = function(evt) {
 
-      var isFieldDirty = function($field) {
-        var origValue = $field.data('ays-orig');
-        if (undefined === origValue) {
-          return false;
-        }
-        return (getValue($field) != origValue);
-      };
-
-      var $form = ($(this).is('form')) 
+      var $form = ($(this).is('form'))
                     ? $(this)
                     : $(this).parents('form');
 
@@ -90,7 +90,7 @@
 
       $fields = $form.find(settings.fieldSelector);
 
-      if (settings.addRemoveFieldsMarksDirty) {              
+      if (settings.addRemoveFieldsMarksDirty) {
         // Check if field count has changed
         var origCount = $form.data("ays-orig-field-count");
         if (origCount != $fields.length) {
@@ -108,7 +108,7 @@
           return false; // break
         }
       });
-      
+
       setDirtyStatus($form, isDirty);
     };
 
@@ -124,7 +124,7 @@
     var setDirtyStatus = function($form, isDirty) {
       var changed = isDirty != $form.hasClass(settings.dirtyClass);
       $form.toggleClass(settings.dirtyClass, isDirty);
-        
+
       // Fire change event if required
       if (changed) {
         if (settings.change) settings.change.call($form, $form);
@@ -140,7 +140,7 @@
       var fields = $form.find(settings.fieldSelector);
       $(fields).each(function() {
         var $field = $(this);
-        if (!$field.data('ays-orig')) {
+        if (!$field.data('ays-orig') && $field.data('ays-orig') !== "") {
           storeOrigValue($field);
           $field.bind(settings.fieldEvents, checkForm);
         }
@@ -151,6 +151,19 @@
 
     var reinitialize = function() {
       initForm($(this));
+    }
+
+    var getDirtyFields = function() {
+      var $form = $(this);
+      var fields = $form.find(settings.fieldSelector);
+      var dirtyFields = [];
+      fields.each(function() {
+        if (isFieldDirty($(this))) {
+          dirtyFields.push($(this));
+        }
+      });
+      $(this).data("dirtyFields", dirtyFields);
+      return dirtyFields
     }
 
     if (!settings.silent && !window.aysUnloadSet) {
@@ -177,12 +190,13 @@
         return;
       }
       var $form = $(this);
-        
+
       $form.submit(function() {
         $form.removeClass(settings.dirtyClass);
       });
       $form.bind('reset', function() { setDirtyStatus($form, false); });
       // Add a custom events
+      $form.bind('getDirtyFields.areYouSure', getDirtyFields);
       $form.bind('rescan.areYouSure', rescan);
       $form.bind('reinitialize.areYouSure', reinitialize);
       $form.bind('checkform.areYouSure', checkForm);
