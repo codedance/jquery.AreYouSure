@@ -210,24 +210,24 @@ It works by scanning the page for anchor links and augments the default behaviou
 check with *Are-you-sure* before navigating away. To use, simply include 
 ```ays-beforeunload-shim.js``` in your page.
 
-####Firefox
+#### Firefox
 The custom message option may not work on Firefox ([Firefox bug 588292](https://bugzilla.mozilla.org/show_bug.cgi?id=588292)).
 
-###Development
+### Development
 The aim is to keep *Are-you-sure* simple and light. If you think you have 
 a good idea which is aligned with this objective, please voice your thoughts 
 in the issues list.
 
-####Pull Requests
+#### Pull Requests
 If possible, please submit your pull request against the most recent ```dev-*``` branch rather than master. This will make it easier to merge your code into the next planned release.
 
-####Running tests
+#### Running tests
 ```bash
 $ npm install
 $ npm test
 ```
 
-###Release History
+### Release History
 
 **2014-08-13** (1.9) - This is a minor bugfix release:
 
@@ -282,11 +282,11 @@ $ npm test
 **2012-10-24** - Initial public release.
 
 
-###Prerequisites
+### Prerequisites
 jQuery version 1.4.2 or higher. 2.0+ or 1.10+ recommended.
 
 
-###License
+### License
 The same as JQuery...
 
     jQuery Plugin: Are-You-Sure (Dirty Form Detection)
