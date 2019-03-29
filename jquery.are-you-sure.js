@@ -22,7 +22,8 @@
         'silent' : false,
         'addRemoveFieldsMarksDirty' : false,
         'fieldEvents' : 'change keyup propertychange input',
-        'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])"
+        'fieldSelector': ":input:not(input[type=submit]):not(input[type=button])",
+        'softPageUnloadEvent': null
       }, options);
 
     var getValue = function($field) {
@@ -155,7 +156,7 @@
 
     if (!settings.silent && !window.aysUnloadSet) {
       window.aysUnloadSet = true;
-      $(window).bind('beforeunload', function() {
+      var unload_handler = function(event) {
         $dirtyForms = $("form").filter('.' + settings.dirtyClass);
         if ($dirtyForms.length == 0) {
           return;
@@ -168,8 +169,16 @@
           window.aysHasPrompted = true;
           window.setTimeout(function() {window.aysHasPrompted = false;}, 900);
         }
+        if(event.type == settings.softPageUnloadEvent) {
+          return confirm(settings.message);
+        }
         return settings.message;
-      });
+      }
+
+      $(window).bind('beforeunload', unload_handler);
+      if (settings.softPageUnloadEvent != null) {
+        $(window).bind(settings.softPageUnloadEvent, unload_handler);
+      }
     }
 
     return this.each(function(elem) {
