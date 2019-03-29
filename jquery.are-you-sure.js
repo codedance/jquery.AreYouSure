@@ -48,15 +48,6 @@
         case 'radio':
           val = $field.is(':checked');
           break;
-        case 'select':
-          val = '';
-          $field.find('option').each(function(o) {
-            var $option = $(this);
-            if ($option.is(':selected')) {
-              val += $option.val();
-            }
-          });
-          break;
         default:
           val = $field.val();
       }
