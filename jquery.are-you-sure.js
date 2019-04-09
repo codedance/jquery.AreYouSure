@@ -151,24 +151,38 @@
 
     var reinitialize = function() {
       initForm($(this));
-    }
+    };
+
+    var openConfirmation = function () {
+      $dirtyForms = $("form").filter('.' + settings.dirtyClass);
+      if ($dirtyForms.length == 0) {
+        return;
+      }
+      // Prevent multiple prompts - seen on Chrome and IE
+      if (navigator.userAgent.toLowerCase().match(/msie|chrome/)) {
+        if (window.aysHasPrompted) {
+          return;
+        }
+        window.aysHasPrompted = true;
+        window.setTimeout(function() {window.aysHasPrompted = false;}, 900);
+      }
+
+      return true;
+    };
 
     if (!settings.silent && !window.aysUnloadSet) {
       window.aysUnloadSet = true;
+
       $(window).bind('beforeunload', function() {
-        $dirtyForms = $("form").filter('.' + settings.dirtyClass);
-        if ($dirtyForms.length == 0) {
-          return;
+        if(openConfirmation()) {
+          return settings.message;
         }
-        // Prevent multiple prompts - seen on Chrome and IE
-        if (navigator.userAgent.toLowerCase().match(/msie|chrome/)) {
-          if (window.aysHasPrompted) {
-            return;
-          }
-          window.aysHasPrompted = true;
-          window.setTimeout(function() {window.aysHasPrompted = false;}, 900);
+      });
+
+      $(document).bind('page:before-change', function() {
+        if(openConfirmation()) {
+          return confirm(settings.message);
         }
-        return settings.message;
       });
     }
 
