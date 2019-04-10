@@ -18,6 +18,7 @@
       {
         'message' : 'You have unsaved changes!',
         'dirtyClass' : 'dirty',
+        'dirtyFieldClass' : 'dirty-field',
         'change' : null,
         'silent' : false,
         'addRemoveFieldsMarksDirty' : false,
@@ -78,14 +79,20 @@
         return (getValue($field) != origValue);
       };
 
+
+
       var $form = ($(this).is('form')) 
                     ? $(this)
                     : $(this).parents('form');
 
       // Test on the target first as it's the most likely to be dirty
       if (isFieldDirty($(evt.target))) {
+        setDirtyFieldStatus($(evt.target), true);
         setDirtyStatus($form, true);
         return;
+      }
+      else {
+        setDirtyFieldStatus($(evt.target), false);
       }
 
       $fields = $form.find(settings.fieldSelector);
@@ -133,6 +140,11 @@
         if (!isDirty) $form.trigger('clean.areYouSure', [$form]);
         $form.trigger('change.areYouSure', [$form]);
       }
+    };
+
+    var setDirtyFieldStatus = function($field, isDirty){
+      $field.toggleClass(settings.dirtyFieldClass, isDirty);
+
     };
 
     var rescan = function() {
