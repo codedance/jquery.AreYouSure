@@ -11,7 +11,7 @@
     "Marc Sutton <ashre@iname.com> (http://www.codev.co.uk)"
   ],
   "version": "1.9.0",
-  "license": "MIT/GPLv2",
+  "license": "MIT",
   "keywords": [ "dirty", "form", "onbeforeunload", "save", "check" ],
   "main": "jquery.are-you-sure.js",
   "engines": {
